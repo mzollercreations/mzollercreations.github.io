@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>mzollercreations – Marketing, das noch niemand gesehen hat</title>
+<meta name="description" content="mzollercreations ist ein Team aus Entwicklern, das Marketing programmiert: interaktive 3D-Welten, Filme aus Code, Scroll-Stories und KI-Kampagnen.">
+<meta name="theme-color" content="#09090b">
+<link rel="canonical" href="https://mzollercreations.github.io/">
+<link rel="alternate" hreflang="de" href="https://mzollercreations.github.io/">
+<link rel="alternate" hreflang="en" href="https://mzollercreations.github.io/en/">
+<link rel="alternate" hreflang="x-default" href="https://mzollercreations.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="mzollercreations">
+<meta property="og:title" content="mzollercreations – Marketing, das noch niemand gesehen hat">
+<meta property="og:description" content="mzollercreations ist ein Team aus Entwicklern, das Marketing programmiert: interaktive 3D-Welten, Filme aus Code, Scroll-Stories und KI-Kampagnen.">
+<meta property="og:url" content="https://mzollercreations.github.io/">
+<meta property="og:image" content="https://mzollercreations.github.io/assets/img/og.png">
+<meta property="og:locale" content="de_DE">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/bricolage-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/style.css?v=52f22163">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#main">Zum Inhalt springen</a>
+
+<svg class="defs" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="g24" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="24" y2="24">
+      <stop offset="0" stop-color="#39d5ff"/><stop offset=".38" stop-color="#7c5cff"/><stop offset=".7" stop-color="#ff5ca8"/><stop offset="1" stop-color="#ffb03a"/>
+    </linearGradient>
+    <linearGradient id="g200" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="200" y2="200">
+      <stop offset="0" stop-color="#39d5ff"/><stop offset=".38" stop-color="#7c5cff"/><stop offset=".7" stop-color="#ff5ca8"/><stop offset="1" stop-color="#ffb03a"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<div class="loader" aria-hidden="true">
+  <div class="loader-word"><span style="--i:0">m</span><span style="--i:1">z</span><span style="--i:2">o</span><span style="--i:3">l</span><span style="--i:4">l</span><span style="--i:5">e</span><span style="--i:6">r</span><span style="--i:7">c</span><span style="--i:8">r</span><span style="--i:9">e</span><span style="--i:10">a</span><span style="--i:11">t</span><span style="--i:12">i</span><span style="--i:13">o</span><span style="--i:14">n</span><span style="--i:15">s</span></div>
+  <div class="loader-line"><i></i></div>
+</div>
+
+<canvas class="field" id="field" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<div class="progress" aria-hidden="true"><i></i></div>
+<div class="cursor" aria-hidden="true"><i></i></div>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="mzollercreations">
+    <span class="brand-mark"></span><span class="brand-word">mzoller<b>creations</b></span>
+  </a>
+  <nav class="nav-links" aria-label="Menü">
+    <a href="#manifest">Manifest</a>
+    <a href="#services">Leistungen</a>
+    <a href="#team">Team</a>
+    <a href="#process">Prozess</a>
+    <a href="#contact">Kontakt</a>
+  </nav>
+  <div class="nav-right">
+    <div class="lang">
+      <a href="./" hreflang="de" lang="de" aria-current="page">DE</a><a href="en/" hreflang="en" lang="en">EN</a>
+    </div>
+    <a class="btn btn-primary btn-small" href="#contact" data-magnetic><span>Projekt starten</span></a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="menu">
+      <span class="sr" data-open="Menü" data-close="Schließen">Menü</span><i></i><i></i>
+    </button>
+  </div>
+</header>
+
+<div class="menu" id="menu" hidden>
+  <nav class="menu-links" aria-label="Menü">
+    <a href="#manifest"><i>01</i>Manifest</a>
+    <a href="#services"><i>02</i>Leistungen</a>
+    <a href="#team"><i>03</i>Team</a>
+    <a href="#process"><i>04</i>Prozess</a>
+    <a href="#contact"><i>05</i>Kontakt</a>
+  </nav>
+  <div class="menu-foot">
+    <div class="lang"><a href="./" hreflang="de" lang="de" aria-current="page">DE</a><a href="en/" hreflang="en" lang="en">EN</a></div>
+    <a href="https://github.com/mzollercreations" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top" data-scene="0">
+  <div class="wrap hero-inner">
+    <p class="eyebrow"><span class="dot"></span>Entwickler-Studio für Marketing</p>
+    <h1 class="hero-title">
+      <span class="line" data-depth=".05"><span class="line-in" style="--d:0">Marketing,</span></span>
+      <span class="line" data-depth=".11"><span class="line-in" style="--d:.09">das <span class="grad">noch niemand</span></span></span>
+      <span class="line" data-depth=".17"><span class="line-in" style="--d:.18"><span class="grad">gesehen</span> hat.</span></span>
+    </h1>
+    <div class="hero-row">
+      <p class="hero-sub">Wir sind ein Team aus Entwicklern. Wir schreiben keine Kampagnen – wir programmieren sie: interaktive 3D-Welten, Filme aus Code und Webseiten, die man nicht mehr vergisst.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#contact" data-magnetic><span>Projekt starten</span><svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-ghost" href="#services"><span>Was wir bauen</span><svg class="arr arr-down" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="wrap hero-meta">
+    <span>Gegründet 2026</span>
+    <span class="scroll-cue"><i></i>Scrollen</span>
+    <span>Code statt Vorlagen</span>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="mq-row" data-dir="-1"><div class="mq-track"><span class="mq-item">Code</span><span class="mq-item">Kreation</span><span class="mq-item">Kampagne</span><span class="mq-item">3D-Welten</span><span class="mq-item">Filme</span><span class="mq-item">KI</span><span class="mq-item">Scroll-Stories</span><span class="mq-item">Sound</span><span class="mq-item">Code</span><span class="mq-item">Kreation</span><span class="mq-item">Kampagne</span><span class="mq-item">3D-Welten</span><span class="mq-item">Filme</span><span class="mq-item">KI</span><span class="mq-item">Scroll-Stories</span><span class="mq-item">Sound</span></div></div>
+  <div class="mq-row mq-outline" data-dir="1"><div class="mq-track"><span class="mq-item">Code</span><span class="mq-item">Kreation</span><span class="mq-item">Kampagne</span><span class="mq-item">3D-Welten</span><span class="mq-item">Filme</span><span class="mq-item">KI</span><span class="mq-item">Scroll-Stories</span><span class="mq-item">Sound</span><span class="mq-item">Code</span><span class="mq-item">Kreation</span><span class="mq-item">Kampagne</span><span class="mq-item">3D-Welten</span><span class="mq-item">Filme</span><span class="mq-item">KI</span><span class="mq-item">Scroll-Stories</span><span class="mq-item">Sound</span></div></div>
+</div>
+
+<!-- ============ MANIFEST ============ -->
+<section class="manifest" id="manifest" data-scene="1">
+  <div class="sticky">
+    <div class="wrap">
+      <p class="label"><i>01</i>Manifest</p>
+      <p class="manifest-text">Die meiste Werbung sieht aus wie die Werbung davor. Gleiche Vorlagen, gleiche Bilder, gleiche Versprechen. Wir glauben: Wer Neues zeigen will, muss <em>Neues bauen.</em> Darum sind wir keine Agentur, sondern <em>Entwickler</em> – und jede Idee beginnt bei uns mit einer <em>leeren Datei.</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section class="stats wrap" aria-label="mzollercreations">
+  <div class="stat" data-reveal>
+    <div class="stat-num"><span data-count-from="99" data-count-to="0">0</span></div>
+    <h3>Vorlagen</h3>
+    <p>Jedes Projekt startet bei null – mit einer Idee, die es nur einmal gibt.</p>
+  </div>
+  <div class="stat" data-reveal style="--d:120">
+    <div class="stat-num"><span data-count-from="0" data-count-to="100">100</span><small>%</small></div>
+    <h3>eigener Code</h3>
+    <p>Keine Baukästen, keine Plugins von der Stange, keine Grenzen.</p>
+  </div>
+  <div class="stat" data-reveal style="--d:240">
+    <div class="stat-num"><span data-count-from="9" data-count-to="1">1</span></div>
+    <h3>Team</h3>
+    <p>Idee, Design, 3D, Film und Entwicklung – alles aus einer Hand.</p>
+  </div>
+</section>
+
+<!-- ============ SERVICES (horizontal) ============ -->
+<section class="services" id="services" data-scene="2">
+  <div class="sticky">
+    <div class="wrap services-head">
+      <div>
+        <p class="label"><i>02</i>Was wir bauen</p>
+        <h2 class="h2" data-split>Sechs Arten, endlich gesehen zu werden.</h2>
+      </div>
+      <div class="sp">
+        <span class="sp-count"><b>01</b> / 07</span>
+        <span class="sp-bar"><i></i></span>
+        <span class="sp-hint">Weiterscrollen <svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </div>
+    <div class="track-wrap">
+      <div class="track">
+
+        <article class="card" style="--h:#7c5cff">
+          <div class="card-top"><span class="card-num">01</span><span class="card-tag">WebGL · Three.js</span></div>
+          <div class="card-vis vis-cube" aria-hidden="true">
+            <div class="floor"></div>
+            <div class="scene3d"><div class="cube"><i class="f1"></i><i class="f2"></i><i class="f3"></i><i class="f4"></i><i class="f5"></i><i class="f6"></i></div></div>
+          </div>
+          <h3>Interaktive 3D-Welten</h3>
+          <p>Begehbare Showrooms und Produktwelten direkt im Browser. Ohne App, ohne Download – Link öffnen und eintauchen.</p>
+        </article>
+
+        <article class="card" style="--h:#ff5ca8">
+          <div class="card-top"><span class="card-num">02</span><span class="card-tag">Blender · Cycles · Sound</span></div>
+          <div class="card-vis vis-film" aria-hidden="true">
+            <div class="film-screen"><span class="rec"><b></b>REC</span><span class="tc" data-timecode>00:00:00:00</span><span class="play"></span></div>
+            <div class="film-wave"><i style="--d:0.39s;--s:0.36"></i><i style="--d:0.78s;--s:0.30"></i><i style="--d:0.64s;--s:0.52"></i><i style="--d:0.07s;--s:0.63"></i><i style="--d:0.04s;--s:0.58"></i><i style="--d:0.08s;--s:0.32"></i><i style="--d:0.51s;--s:0.87"></i><i style="--d:0.15s;--s:0.42"></i><i style="--d:0.75s;--s:0.96"></i><i style="--d:0.69s;--s:0.55"></i><i style="--d:1.17s;--s:0.28"></i><i style="--d:1.03s;--s:0.47"></i><i style="--d:0.17s;--s:0.34"></i><i style="--d:0.37s;--s:0.86"></i><i style="--d:0.22s;--s:0.69"></i><i style="--d:0.77s;--s:0.53"></i><i style="--d:0.66s;--s:0.30"></i><i style="--d:0.07s;--s:0.40"></i><i style="--d:0.82s;--s:0.57"></i><i style="--d:0.38s;--s:0.69"></i><i style="--d:0.54s;--s:0.47"></i><i style="--d:0.95s;--s:0.77"></i><i style="--d:0.29s;--s:0.68"></i><i style="--d:0.63s;--s:0.91"></i><i style="--d:0.88s;--s:0.47"></i><i style="--d:1.18s;--s:0.34"></i><i style="--d:0.50s;--s:0.82"></i><i style="--d:0.18s;--s:0.62"></i><i style="--d:0.05s;--s:0.75"></i><i style="--d:0.92s;--s:0.68"></i><i style="--d:1.05s;--s:0.49"></i><i style="--d:0.83s;--s:0.70"></i><i style="--d:0.70s;--s:0.59"></i><i style="--d:1.01s;--s:0.96"></i><i style="--d:0.57s;--s:0.75"></i><i style="--d:0.07s;--s:0.78"></i></div>
+          </div>
+          <h3>Filme aus Code</h3>
+          <p>Launch- und Produktfilme, die gerendert statt gedreht werden: mit echten 3D-Modellen, eigener Musik und Stimme.</p>
+        </article>
+
+        <article class="card" style="--h:#39d5ff">
+          <div class="card-top"><span class="card-num">03</span><span class="card-tag">Motion · Interaction</span></div>
+          <div class="card-vis vis-scroll" aria-hidden="true">
+            <div class="phone">
+              <div class="phone-feed">
+                <div class="pf-block"><div class="pf-hero"></div><i></i><i class="s"></i><div class="pf-row"><b></b><b></b></div><i></i><div class="pf-hero pf-2"></div><i class="s"></i><i></i></div>
+                <div class="pf-block"><div class="pf-hero"></div><i></i><i class="s"></i><div class="pf-row"><b></b><b></b></div><i></i><div class="pf-hero pf-2"></div><i class="s"></i><i></i></div>
+              </div>
+              <div class="phone-bar"><i></i></div>
+            </div>
+          </div>
+          <h3>Scroll-Stories</h3>
+          <p>Webseiten, die beim Scrollen eine Geschichte erzählen. So wie diese hier.</p>
+        </article>
+
+        <article class="card" style="--h:#ffb03a">
+          <div class="card-top"><span class="card-num">04</span><span class="card-tag">LLMs · TTS · Automation</span></div>
+          <div class="card-vis vis-ai" aria-hidden="true">
+            <div class="blob"></div>
+            <div class="ai-slot"><div class="ai-words"><span>Hallo</span><span>Hello</span><span>Bonjour</span><span>Hola</span><span>Ciao</span><span>Hallo</span></div></div>
+            <div class="ai-prompt">&gt; generate --lang=all<b></b></div>
+          </div>
+          <h3>KI-Kampagnen</h3>
+          <p>Texte, Bilder und Stimmen in jeder Sprache – generiert, kuratiert und exakt auf deine Marke abgestimmt.</p>
+        </article>
+
+        <article class="card" style="--h:#ff5ca8">
+          <div class="card-top"><span class="card-num">05</span><span class="card-tag">Film · Web · Live</span></div>
+          <div class="card-vis vis-event" aria-hidden="true">
+            <div class="radar"><i></i><i></i><i></i><b></b></div>
+            <div class="ticket"><span>T–</span><strong data-countdown>72:00:00</strong></div>
+          </div>
+          <h3>Event-Erlebnisse</h3>
+          <p>Einladungsfilme, Eventseiten und Countdowns, die Menschen nicht nur informieren, sondern vor Ort bringen.</p>
+        </article>
+
+        <article class="card" style="--h:#39d5ff">
+          <div class="card-top"><span class="card-num">06</span><span class="card-tag">i18n · Build-Pipelines</span></div>
+          <div class="card-vis vis-globe" aria-hidden="true">
+            <div class="globe">
+              <i style="--r:0deg"></i><i style="--r:30deg"></i><i style="--r:60deg"></i><i style="--r:90deg"></i><i style="--r:120deg"></i><i style="--r:150deg"></i>
+              <b style="--y:-.55;--w:83.5%"></b><b style="--y:0;--w:100%"></b><b style="--y:.55;--w:83.5%"></b>
+            </div>
+            <div class="globe-tags"><span>DE</span><span>EN</span><span>FR</span><span>ES</span></div>
+          </div>
+          <h3>Plattformen für jeden Markt</h3>
+          <p>Eine Quelle, viele Länder: Webseiten, die sich automatisch für jede Sprache und jeden Markt bauen.</p>
+        </article>
+
+        <article class="card card-end">
+          <div class="card-top"><span class="card-num">07</span><span class="card-tag">∞</span></div>
+          <p class="card-end-text">Und alles, wofür es noch keinen Namen gibt.</p>
+          <a class="btn btn-primary" href="#contact" data-magnetic><span>Projekt starten</span><svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </article>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ZOOM ============ -->
+<section class="zoom" aria-label="Noch nie gesehen.">
+  <div class="sticky">
+    <p class="zoom-big" aria-hidden="true"><span>Noch nie gesehen.</span></p>
+    <div class="zoom-disc"><p class="zoom-inner">Das ist kein Werbeversprechen.<br>Das ist unser <em>Arbeitsauftrag.</em></p></div>
+  </div>
+</section>
+
+<!-- ============ TEAM ============ -->
+<section class="team" id="team">
+  <div class="wrap team-grid">
+    <div class="team-copy">
+      <p class="label"><i>03</i>Team</p>
+      <h2 class="h2" data-split>Ein Team aus <em>Entwicklern.</em> Nicht aus Werbern.</h2>
+      <p class="lead" data-reveal>Bei uns sitzen keine Account-Manager zwischen dir und den Menschen, die dein Projekt bauen. Du sprichst direkt mit Entwicklern, die Design, 3D, Film und Code gleichermaßen beherrschen – und die nicht aufhören, bis etwas entsteht, das es so noch nicht gab.</p>
+    </div>
+    <div class="code" data-reveal style="--d:150">
+      <div class="code-bar"><i></i><i></i><i></i><span>team.js</span></div>
+      <pre class="code-body"><code data-type><span class="ln"><span class="tk-k">const</span> team = {</span><span class="ln">  <span class="tk-p">name</span>: <span class="tk-s">"mzollercreations"</span>,</span><span class="ln">  <span class="tk-p">wir</span>: <span class="tk-s">"Entwickler"</span>,</span><span class="ln">  <span class="tk-p">bauen</span>: <span class="tk-s">"Marketing"</span>,</span><span class="ln">  <span class="tk-p">schonGesehen</span>: <span class="tk-b">false</span>, <span class="tk-c">// noch nie</span></span><span class="ln">  <span class="tk-p">vorlagen</span>: <span class="tk-n">0</span>,</span><span class="ln">};</span><span class="ln"></span><span class="ln"><span class="tk-f">launch</span>(team); <span class="tk-c">// ✦</span></span></code></pre>
+    </div>
+  </div>
+  <div class="wrap roles">
+    <article class="role" data-reveal>
+      <span class="role-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16"/></svg></span>
+      <h3>Creative Development</h3><p>Interfaces und Webseiten, die sich anders anfühlen als alles, was man kennt.</p><span class="role-stack">HTML · WebGL · GLSL</span>
+    </article>
+    <article class="role" data-reveal style="--d:90">
+      <span class="role-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l8.5 4.8v9.4L12 21.5l-8.5-4.8V7.3zM12 12l8.5-4.7M12 12v9.5M12 12L3.5 7.3"/></svg></span>
+      <h3>3D & Motion</h3><p>Wir modellieren, animieren und rendern Produkte – manchmal, bevor es sie überhaupt gibt.</p><span class="role-stack">Blender · Three.js</span>
+    </article>
+    <article class="role" data-reveal style="--d:180">
+      <span class="role-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h1.5M7 8v8M11 4v16M15 7v10M19 10v4"/></svg></span>
+      <h3>Film & Sound</h3><p>Schnitt, Sounddesign, Musik und Stimme. Bild für Bild, Ton für Ton.</p><span class="role-stack">Schnitt · Score · Voice</span>
+    </article>
+    <article class="role" data-reveal style="--d:270">
+      <span class="role-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3l1.8 5.2L18 10l-5.2 1.8L11 17l-1.8-5.2L4 10l5.2-1.8zM18.5 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg></span>
+      <h3>KI & Automatisierung</h3><p>Inhalte in jeder Sprache, Pipelines, die sich selbst bauen, Kampagnen, die mitdenken.</p><span class="role-stack">LLMs · TTS · Python</span>
+    </article>
+  </div>
+</section>
+
+<!-- ============ PROCESS (stacking cards) ============ -->
+<section class="process" id="process" data-scene="3">
+  <div class="wrap">
+    <p class="label"><i>04</i>Prozess</p>
+    <h2 class="h2" data-split>Vom ersten Gedanken zum ersten <em>Wow.</em></h2>
+    <div class="stack">
+      <article class="pcard" style="--i:0;--h:#39d5ff">
+        <span class="pcard-num">01</span>
+        <div class="pcard-body"><h3>Verstehen</h3><p>Wir tauchen in dein Produkt, deine Kunden und deinen Markt ein – bis wir wissen, was dort noch niemand gezeigt hat.</p></div>
+        <svg class="pcard-vis" viewBox="0 0 200 200" aria-hidden="true"><circle class="spin dash" cx="100" cy="100" r="80"/><circle cx="100" cy="100" r="54"/><circle class="pulse" cx="100" cy="100" r="28"/><circle class="fill" cx="100" cy="100" r="5"/><path d="M100 6v30M100 164v30M6 100h30M164 100h30"/></svg>
+        <div class="pcard-shade"></div>
+      </article>
+      <article class="pcard" style="--i:1;--h:#7c5cff">
+        <span class="pcard-num">02</span>
+        <div class="pcard-body"><h3>Prototyp</h3><p>Statt Folien bekommst du früh etwas, das läuft: klickbar, scrollbar, erlebbar. Entschieden wird am echten Ergebnis.</p></div>
+        <svg class="pcard-vis" viewBox="0 0 200 200" aria-hidden="true"><rect x="20" y="36" width="160" height="120" rx="12"/><path d="M20 60h160"/><circle class="fill" cx="34" cy="48" r="3"/><circle class="fill" cx="46" cy="48" r="3"/><rect class="pulse" x="36" y="76" width="70" height="40" rx="6"/><path d="M120 80h44M120 94h34M120 108h40M36 134h128"/><path class="fill cur" d="M128 118l26 10-11 4 8 12-6 4-8-12-8 8z"/></svg>
+        <div class="pcard-shade"></div>
+      </article>
+      <article class="pcard" style="--i:2;--h:#ff5ca8">
+        <span class="pcard-num">03</span>
+        <div class="pcard-body"><h3>Entwickeln</h3><p>Design, Code, 3D, Film und Ton entstehen parallel im selben Team. Keine Übergaben, keine stille Post.</p></div>
+        <svg class="pcard-vis" viewBox="0 0 200 200" aria-hidden="true"><path class="lay l1" d="M100 40l70 32-70 32-70-32z"/><path class="lay l2" d="M30 100l70 32 70-32"/><path class="lay l3" d="M30 128l70 32 70-32"/></svg>
+        <div class="pcard-shade"></div>
+      </article>
+      <article class="pcard" style="--i:3;--h:#ffb03a">
+        <span class="pcard-num">04</span>
+        <div class="pcard-body"><h3>Launch & Weiterbauen</h3><p>Wir bringen es live, messen, was wirkt, und entwickeln weiter. Gutes Marketing ist nie fertig.</p></div>
+        <svg class="pcard-vis" viewBox="0 0 200 200" aria-hidden="true"><path d="M24 172h156M24 172V28"/><path class="draw" d="M30 152l36-30 30 18 40-50 38-48"/><circle class="fill pulse" cx="174" cy="42" r="6"/></svg>
+        <div class="pcard-shade"></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact" data-scene="4">
+  <div class="wrap contact-inner">
+    <p class="label"><i>05</i>Kontakt</p>
+    <h2 class="contact-title" data-split>Lass uns etwas bauen, das noch <em>niemand gesehen</em> hat.</h2>
+    <p class="lead" data-reveal>Erzähl uns von deinem Produkt, deinem Event oder der Idee, die bisher alle für unmöglich hielten.</p>
+    <div class="contact-cta" data-reveal style="--d:120">
+      <a class="btn btn-primary btn-xl" href="https://github.com/mzollercreations" target="_blank" rel="noopener" data-magnetic><span>Unsere Arbeit auf GitHub</span><svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <div class="badge" aria-hidden="true">
+        <svg viewBox="0 0 200 200"><defs><path id="circ" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0"/></defs><text textLength="498" lengthAdjust="spacing"><textPath href="#circ">noch nie gesehen ✦ noch nie gesehen ✦ </textPath></text></svg>
+        <span class="badge-core">✦</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="#top" aria-label="mzollercreations"><span class="brand-mark"></span><span class="brand-word">mzoller<b>creations</b></span></a>
+      <p class="footer-tag">Gebaut von Entwicklern – ohne eine einzige Vorlage.</p>
+    </div>
+    <div>
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="#manifest">Manifest</a></li>
+        <li><a href="#services">Leistungen</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#process">Prozess</a></li>
+        <li><a href="#contact">Kontakt</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sprache</h4>
+      <ul>
+        <li><a href="./" hreflang="de" lang="de" aria-current="page">Deutsch</a></li>
+        <li><a href="en/" hreflang="en" lang="en">English</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Code</h4>
+      <ul>
+        <li><a href="https://github.com/mzollercreations" target="_blank" rel="noopener">GitHub ↗</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-word" aria-hidden="true"><span>mzollercreations</span></div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 mzollercreations. Alle Rechte vorbehalten.</span>
+    <a href="#top">Nach oben ↑</a>
+  </div>
+</footer>
+
+<script src="assets/js/field.js?v=52f22163" defer></script>
+<script src="assets/js/main.js?v=52f22163" defer></script>
+</body>
+</html>
