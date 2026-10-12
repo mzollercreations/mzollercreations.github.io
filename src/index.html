@@ -1,78 +1,10 @@
-<!doctype html>
-<html lang="{{lang}}">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>{{meta_title}}</title>
-<meta name="description" content="{{meta_desc}}">
-<meta name="theme-color" content="#ffffff">
-<link rel="canonical" href="{{canonical}}">
-<link rel="alternate" hreflang="de" href="{{url_de}}">
-<link rel="alternate" hreflang="en" href="{{url_en}}">
-<link rel="alternate" hreflang="x-default" href="{{url_de}}">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="{{brand}}">
-<meta property="og:title" content="{{meta_title}}">
-<meta property="og:description" content="{{meta_desc}}">
-<meta property="og:url" content="{{canonical}}">
-<meta property="og:image" content="{{site_url}}assets/img/og.png">
-<meta property="og:locale" content="{{locale}}">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="{{base}}assets/img/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="{{base}}assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="{{base}}assets/fonts/instrumentserif-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="{{base}}assets/css/style.css?v={{v}}">
-<script>document.documentElement.classList.add('js')</script>
-</head>
+{{> head}}
 <body>
-<a class="skip" href="#main">{{skip}}</a>
-
-<svg class="defs" aria-hidden="true" focusable="false">
-  <symbol id="mark" viewBox="0 0 24 24"><path style="fill:currentColor" d="M7 3.5h10l5.5 6L12 21.5 1.5 9.5z"/><path style="fill:none;stroke:var(--bg,#fff);stroke-width:1.1;stroke-linejoin:round" d="M1.5 9.5h21M7 3.5l2.5 6 2.5-6 2.5 6 2.5-6M9.5 9.5 12 21.5l2.5-12"/></symbol>
-  <symbol id="arr" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
-  <symbol id="arr-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
-</svg>
+{{> nav}}
 
 <div class="loader" aria-hidden="true">
   <svg class="loader-mark" viewBox="0 0 24 24"><path d="M7 3.5h10l5.5 6L12 21.5 1.5 9.5zM1.5 9.5h21M7 3.5l2.5 6 2.5-6 2.5 6 2.5-6M9.5 9.5 12 21.5l2.5-12" pathLength="1"/></svg>
   <div class="loader-word">{{loader_letters}}</div>
-</div>
-
-<header class="nav" id="nav">
-  <a class="brand" href="#top" aria-label="{{brand}}">
-    <svg class="mark" aria-hidden="true"><use href="#mark"/></svg><span class="wm">{{wordmark}}</span>
-  </a>
-  <nav class="nav-links" aria-label="{{nav_menu}}">
-    <a href="#manifest">{{nav_manifest}}</a>
-    <a href="#services">{{nav_services}}</a>
-    <a href="#team">{{nav_team}}</a>
-    <a href="#process">{{nav_process}}</a>
-    <a href="#contact">{{nav_contact}}</a>
-  </nav>
-  <div class="nav-right">
-    <div class="lang">
-      <a href="{{href_de}}" hreflang="de" lang="de"{{cur_de}}>DE</a><a href="{{href_en}}" hreflang="en" lang="en"{{cur_en}}>EN</a>
-    </div>
-    <a class="btn btn-solid btn-small" href="#contact"><span>{{nav_cta}}</span></a>
-    <button class="burger" type="button" aria-expanded="false" aria-controls="menu">
-      <span class="sr" data-open="{{nav_menu}}" data-close="{{nav_close}}">{{nav_menu}}</span><i></i><i></i>
-    </button>
-  </div>
-  <div class="progress" aria-hidden="true"><i></i></div>
-</header>
-
-<div class="menu" id="menu" hidden>
-  <nav class="menu-links" aria-label="{{nav_menu}}">
-    <a href="#manifest"><i>01</i>{{nav_manifest}}</a>
-    <a href="#services"><i>02</i>{{nav_services}}</a>
-    <a href="#team"><i>03</i>{{nav_team}}</a>
-    <a href="#process"><i>04</i>{{nav_process}}</a>
-    <a href="#contact"><i>05</i>{{nav_contact}}</a>
-  </nav>
-  <div class="menu-foot">
-    <div class="lang"><a href="{{href_de}}" hreflang="de" lang="de"{{cur_de}}>DE</a><a href="{{href_en}}" hreflang="en" lang="en"{{cur_en}}>EN</a></div>
-    <a href="{{github}}" target="_blank" rel="noopener">GitHub ↗</a>
-  </div>
 </div>
 
 <main id="main">
@@ -291,11 +223,46 @@
   </div>
 </section>
 
+<!-- ============ WORK: the proof, right after the promise ============ -->
+<section class="work dark" id="work" data-dark>
+  <div class="wrap">
+    <div class="work-head">
+      <div>
+        <p class="label"><i>03</i>{{work_label}}</p>
+        <h2 class="h2" data-split>{{work_title}}</h2>
+      </div>
+      <a class="btn btn-line" href="{{href_projects}}"><span>{{work_all}}</span><svg class="arr" aria-hidden="true"><use href="#arr"/></svg></a>
+    </div>
+    <article class="work-card" data-reveal>
+      <a class="browser work-shot" href="{{href_projects}}#melanie" aria-label="{{work_btn}}: Melanie’s Massage">
+        <span class="browser-bar" aria-hidden="true"><i></i><i></i><i></i><span class="browser-url"><svg viewBox="0 0 24 24"><path d="M7 11V8a5 5 0 0 1 10 0v3M5.5 11h13v9.5h-13z"/></svg>melanies-massage.pages.dev</span></span>
+        <video class="browser-video" data-autoplay muted loop playsinline preload="none" poster="{{base}}assets/img/work/melanie/hero-1200.webp" aria-hidden="true">
+          <source src="{{base}}assets/video/melanie-desktop.mp4" type="video/mp4">
+        </video>
+      </a>
+      <div class="work-info">
+        <p class="work-kicker">01 · {{work_meta}}</p>
+        <h3 class="work-name">Melanie’s <em>Massage</em></h3>
+        <p class="work-text">{{work_text}}</p>
+        <ul class="work-facts">
+          <li><b>0,3&nbsp;MB</b><span>{{work_f1}}</span></li>
+          <li><b>0</b><span>{{work_f2}}</span></li>
+          <li><b>DE · EN</b><span>{{work_f3}}</span></li>
+        </ul>
+        <div class="work-ctas">
+          <a class="btn btn-light" href="{{href_projects}}#melanie"><span>{{work_btn}}</span><svg class="arr" aria-hidden="true"><use href="#arr"/></svg></a>
+          <a class="btn btn-line" href="https://melanies-massage.pages.dev/" target="_blank" rel="noopener"><span>{{work_live}}</span><svg class="arr" aria-hidden="true"><use href="#arr-out"/></svg></a>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
 <!-- ============ TEAM ============ -->
 <section class="team dark" id="team" data-dark>
   <div class="wrap team-grid">
     <div class="team-copy">
-      <p class="label"><i>03</i>{{team_label}}</p>
+      <p class="label"><i>04</i>{{team_label}}</p>
       <h2 class="h2" data-split>{{team_title}}</h2>
       <p class="lead" data-reveal>{{team_text}}</p>
     </div>
@@ -328,7 +295,7 @@
 <section class="process sheet" id="process">
   <div class="wrap">
     <div class="process-head">
-      <p class="label"><i>04</i>{{process_label}}</p>
+      <p class="label"><i>05</i>{{process_label}}</p>
       <h2 class="h2" data-split>{{process_title}}</h2>
     </div>
     <div class="stack">
@@ -364,14 +331,14 @@
 <section class="contact" id="contact">
   <div class="wrap contact-grid">
     <div class="contact-copy">
-      <p class="label"><i>05</i>{{contact_label}}</p>
+      <p class="label"><i>06</i>{{contact_label}}</p>
       <h2 class="contact-title" data-split>{{contact_title}}</h2>
       <p class="lead" data-reveal>{{contact_text}}</p>
       <div class="contact-cta" data-reveal style="--d:120">
         <a class="btn btn-solid btn-xl" href="{{contact_href}}"{{contact_target}}><span>{{contact_btn}}</span><svg class="arr" aria-hidden="true"><use href="#arr"/></svg></a>
       </div>
     </div>
-    <div class="contact-gem" id="contact-slot">
+    <div class="contact-gem" id="contact-slot" data-gem-box>
       <canvas class="gem-canvas" id="gem-contact" aria-hidden="true"></canvas>
       <svg class="ring" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="ringpath" d="M100,100 m-88,0 a88,88 0 1,1 176,0 a88,88 0 1,1 -176,0"/></defs><text textLength="548" lengthAdjust="spacing"><textPath href="#ringpath">{{contact_badge}}{{contact_badge}}</textPath></text></svg>
     </div>
@@ -381,42 +348,7 @@
 </main>
 
 <!-- ============ FOOTER ============ -->
-<footer class="footer dark" data-dark>
-  <div class="wrap footer-grid">
-    <div class="footer-brand">
-      <a class="brand" href="#top" aria-label="{{brand}}"><svg class="mark" aria-hidden="true"><use href="#mark"/></svg><span class="wm">{{wordmark}}</span></a>
-      <p class="footer-tag">{{footer_tagline}}</p>
-    </div>
-    <div>
-      <h4>{{footer_nav}}</h4>
-      <ul>
-        <li><a href="#manifest">{{nav_manifest}}</a></li>
-        <li><a href="#services">{{nav_services}}</a></li>
-        <li><a href="#team">{{nav_team}}</a></li>
-        <li><a href="#process">{{nav_process}}</a></li>
-        <li><a href="#contact">{{nav_contact}}</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>{{footer_lang}}</h4>
-      <ul>
-        <li><a href="{{href_de}}" hreflang="de" lang="de"{{cur_de}}>Deutsch</a></li>
-        <li><a href="{{href_en}}" hreflang="en" lang="en"{{cur_en}}>English</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>{{footer_social}}</h4>
-      <ul>
-        <li><a href="{{github}}" target="_blank" rel="noopener">GitHub ↗</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-word" aria-hidden="true"><span>Sapphire <em>Creators</em></span></div>
-  <div class="wrap footer-bottom">
-    <span>© 2026 {{brand}}. {{footer_rights}}</span>
-    <a href="#top">{{footer_top}} ↑</a>
-  </div>
-</footer>
+{{> footer}}
 
 <script src="{{base}}assets/js/gem.js?v={{v}}" defer></script>
 <script src="{{base}}assets/js/main.js?v={{v}}" defer></script>

@@ -21,7 +21,7 @@
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/instrumentserif-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/style.css?v=550317aa">
+<link rel="stylesheet" href="assets/css/style.css?v=24bff188">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -31,12 +31,8 @@
   <symbol id="mark" viewBox="0 0 24 24"><path style="fill:currentColor" d="M7 3.5h10l5.5 6L12 21.5 1.5 9.5z"/><path style="fill:none;stroke:var(--bg,#fff);stroke-width:1.1;stroke-linejoin:round" d="M1.5 9.5h21M7 3.5l2.5 6 2.5-6 2.5 6 2.5-6M9.5 9.5 12 21.5l2.5-12"/></symbol>
   <symbol id="arr" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
   <symbol id="arr-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
+  <symbol id="arr-out" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></symbol>
 </svg>
-
-<div class="loader" aria-hidden="true">
-  <svg class="loader-mark" viewBox="0 0 24 24"><path d="M7 3.5h10l5.5 6L12 21.5 1.5 9.5zM1.5 9.5h21M7 3.5l2.5 6 2.5-6 2.5 6 2.5-6M9.5 9.5 12 21.5l2.5-12" pathLength="1"/></svg>
-  <div class="loader-word"><b><span style="--i:0">S</span><span style="--i:1">a</span><span style="--i:2">p</span><span style="--i:3">p</span><span style="--i:4">h</span><span style="--i:5">i</span><span style="--i:6">r</span><span style="--i:7">e</span></b> <em><span style="--i:8">C</span><span style="--i:9">r</span><span style="--i:10">e</span><span style="--i:11">a</span><span style="--i:12">t</span><span style="--i:13">o</span><span style="--i:14">r</span><span style="--i:15">s</span></em></div>
-</div>
 
 <header class="nav" id="nav">
   <a class="brand" href="#top" aria-label="Sapphire Creators">
@@ -45,6 +41,7 @@
   <nav class="nav-links" aria-label="Menü">
     <a href="#manifest">Manifest</a>
     <a href="#services">Leistungen</a>
+    <a href="projekte/">Projekte</a>
     <a href="#team">Team</a>
     <a href="#process">Prozess</a>
     <a href="#contact">Kontakt</a>
@@ -65,14 +62,20 @@
   <nav class="menu-links" aria-label="Menü">
     <a href="#manifest"><i>01</i>Manifest</a>
     <a href="#services"><i>02</i>Leistungen</a>
-    <a href="#team"><i>03</i>Team</a>
-    <a href="#process"><i>04</i>Prozess</a>
-    <a href="#contact"><i>05</i>Kontakt</a>
+    <a href="projekte/"><i>03</i>Projekte</a>
+    <a href="#team"><i>04</i>Team</a>
+    <a href="#process"><i>05</i>Prozess</a>
+    <a href="#contact"><i>06</i>Kontakt</a>
   </nav>
   <div class="menu-foot">
     <div class="lang"><a href="./" hreflang="de" lang="de" aria-current="page">DE</a><a href="en/" hreflang="en" lang="en">EN</a></div>
     <a href="https://github.com/mzollercreations" target="_blank" rel="noopener">GitHub ↗</a>
   </div>
+</div>
+
+<div class="loader" aria-hidden="true">
+  <svg class="loader-mark" viewBox="0 0 24 24"><path d="M7 3.5h10l5.5 6L12 21.5 1.5 9.5zM1.5 9.5h21M7 3.5l2.5 6 2.5-6 2.5 6 2.5-6M9.5 9.5 12 21.5l2.5-12" pathLength="1"/></svg>
+  <div class="loader-word"><b><span style="--i:0">S</span><span style="--i:1">a</span><span style="--i:2">p</span><span style="--i:3">p</span><span style="--i:4">h</span><span style="--i:5">i</span><span style="--i:6">r</span><span style="--i:7">e</span></b> <em><span style="--i:8">C</span><span style="--i:9">r</span><span style="--i:10">e</span><span style="--i:11">a</span><span style="--i:12">t</span><span style="--i:13">o</span><span style="--i:14">r</span><span style="--i:15">s</span></em></div>
 </div>
 
 <main id="main">
@@ -291,11 +294,46 @@
   </div>
 </section>
 
+<!-- ============ WORK: the proof, right after the promise ============ -->
+<section class="work dark" id="work" data-dark>
+  <div class="wrap">
+    <div class="work-head">
+      <div>
+        <p class="label"><i>03</i>Projekte</p>
+        <h2 class="h2" data-split>Gebaut, nicht nur <em>versprochen.</em></h2>
+      </div>
+      <a class="btn btn-line" href="projekte/"><span>Alle Projekte</span><svg class="arr" aria-hidden="true"><use href="#arr"/></svg></a>
+    </div>
+    <article class="work-card" data-reveal>
+      <a class="browser work-shot" href="projekte/#melanie" aria-label="Zur Fallstudie: Melanie’s Massage">
+        <span class="browser-bar" aria-hidden="true"><i></i><i></i><i></i><span class="browser-url"><svg viewBox="0 0 24 24"><path d="M7 11V8a5 5 0 0 1 10 0v3M5.5 11h13v9.5h-13z"/></svg>melanies-massage.pages.dev</span></span>
+        <video class="browser-video" data-autoplay muted loop playsinline preload="none" poster="assets/img/work/melanie/hero-1200.webp" aria-hidden="true">
+          <source src="assets/video/melanie-desktop.mp4" type="video/mp4">
+        </video>
+      </a>
+      <div class="work-info">
+        <p class="work-kicker">01 · Massagestudio, Tamm · Webseite & Scroll-Story</p>
+        <h3 class="work-name">Melanie’s <em>Massage</em></h3>
+        <p class="work-text">Eine Seite, die sich anfühlt wie die Behandlung selbst: warmes Licht, Ruhe – und eine Atempause mitten im Scrollen.</p>
+        <ul class="work-facts">
+          <li><b>0,3&nbsp;MB</b><span>statt 2,7 MB</span></li>
+          <li><b>0</b><span>Anfragen an Dritte</span></li>
+          <li><b>DE · EN</b><span>zweisprachig</span></li>
+        </ul>
+        <div class="work-ctas">
+          <a class="btn btn-light" href="projekte/#melanie"><span>Zur Fallstudie</span><svg class="arr" aria-hidden="true"><use href="#arr"/></svg></a>
+          <a class="btn btn-line" href="https://melanies-massage.pages.dev/" target="_blank" rel="noopener"><span>Live ansehen</span><svg class="arr" aria-hidden="true"><use href="#arr-out"/></svg></a>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
 <!-- ============ TEAM ============ -->
 <section class="team dark" id="team" data-dark>
   <div class="wrap team-grid">
     <div class="team-copy">
-      <p class="label"><i>03</i>Team</p>
+      <p class="label"><i>04</i>Team</p>
       <h2 class="h2" data-split>Ein Team aus <em>Entwicklern.</em> Nicht aus Werbern.</h2>
       <p class="lead" data-reveal>Bei uns sitzen keine Account-Manager zwischen dir und den Menschen, die dein Projekt bauen. Du sprichst direkt mit Entwicklern, die Design, 3D, Film und Code gleichermaßen beherrschen – und die nicht aufhören, bis etwas entsteht, das es so noch nicht gab.</p>
     </div>
@@ -328,7 +366,7 @@
 <section class="process sheet" id="process">
   <div class="wrap">
     <div class="process-head">
-      <p class="label"><i>04</i>Prozess</p>
+      <p class="label"><i>05</i>Prozess</p>
       <h2 class="h2" data-split>Vom Rohstein zum ersten <em>Wow.</em></h2>
     </div>
     <div class="stack">
@@ -364,14 +402,14 @@
 <section class="contact" id="contact">
   <div class="wrap contact-grid">
     <div class="contact-copy">
-      <p class="label"><i>05</i>Kontakt</p>
+      <p class="label"><i>06</i>Kontakt</p>
       <h2 class="contact-title" data-split>Lass uns etwas bauen, das noch <em>niemand gesehen</em> hat.</h2>
       <p class="lead" data-reveal>Erzähl uns von deinem Produkt, deinem Event oder der Idee, die bisher alle für unmöglich hielten.</p>
       <div class="contact-cta" data-reveal style="--d:120">
         <a class="btn btn-solid btn-xl" href="https://github.com/mzollercreations" target="_blank" rel="noopener"><span>Unsere Arbeit auf GitHub</span><svg class="arr" aria-hidden="true"><use href="#arr"/></svg></a>
       </div>
     </div>
-    <div class="contact-gem" id="contact-slot">
+    <div class="contact-gem" id="contact-slot" data-gem-box>
       <canvas class="gem-canvas" id="gem-contact" aria-hidden="true"></canvas>
       <svg class="ring" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="ringpath" d="M100,100 m-88,0 a88,88 0 1,1 176,0 a88,88 0 1,1 -176,0"/></defs><text textLength="548" lengthAdjust="spacing"><textPath href="#ringpath">Sapphire Creators ✦ noch nie gesehen ✦ Sapphire Creators ✦ noch nie gesehen ✦ </textPath></text></svg>
     </div>
@@ -392,6 +430,7 @@
       <ul>
         <li><a href="#manifest">Manifest</a></li>
         <li><a href="#services">Leistungen</a></li>
+        <li><a href="projekte/">Projekte</a></li>
         <li><a href="#team">Team</a></li>
         <li><a href="#process">Prozess</a></li>
         <li><a href="#contact">Kontakt</a></li>
@@ -418,7 +457,7 @@
   </div>
 </footer>
 
-<script src="assets/js/gem.js?v=550317aa" defer></script>
-<script src="assets/js/main.js?v=550317aa" defer></script>
+<script src="assets/js/gem.js?v=24bff188" defer></script>
+<script src="assets/js/main.js?v=24bff188" defer></script>
 </body>
 </html>

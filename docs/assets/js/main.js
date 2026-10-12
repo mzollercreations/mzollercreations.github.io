@@ -66,14 +66,15 @@
       if (!e.isIntersecting) continue;
       countIO.unobserve(e.target);
       const el = e.target, from = +el.dataset.countFrom, to = +el.dataset.countTo;
-      if (reduce) { el.textContent = to; continue; }
+      const fmt = (n) => Math.round(n).toLocaleString(root.lang || undefined);
+      if (reduce) { el.textContent = fmt(to); continue; }
       const t0 = performance.now(), dur = 1700;
       const tick = (now) => {
         const t = clamp((now - t0) / dur), e3 = 1 - Math.pow(1 - t, 3);
-        el.textContent = Math.round(from + (to - from) * e3);
+        el.textContent = fmt(from + (to - from) * e3);
         if (t < 1) requestAnimationFrame(tick);
       };
-      el.textContent = from;
+      el.textContent = fmt(from);
       requestAnimationFrame(tick);
     }
   }, { threshold: 0.6 });
@@ -382,11 +383,11 @@
     };
   })();
 
-  /* contact: the stone comes back, inside its text ring */
-  const contact = (() => {
-    const box = $('#contact-slot'), canvas = $('#gem-contact');
-    if (!box || !canvas || !Gem) return null;
-    const gem = Gem(canvas);
+  /* gem boxes: the stone in its own frame (contact ring, projects page) */
+  function GemBox(box) {
+    const canvas = $('.gem-canvas', box);
+    if (!canvas || !Gem) return null;
+    const gem = Gem(canvas), size = +box.dataset.gemSize || 0.27;
     let top = 0, left = 0, h = 1, W = 1, H = 1, cx = 0, cy = 0, idle = false;
     const spin = Spinner(box, (x, yy) => Math.hypot(x - cx, yy - cy) < W * 0.42);
     return {
@@ -403,10 +404,44 @@
         cx = left + W / 2; cy = top - y + H / 2;
         spin.step(dt, cx, cy);
         gem.draw({
-          x: W / 2, y: H / 2 - W * 0.03, r: W * 0.27,
+          x: W / 2, y: H / 2 - W * 0.03, r: W * size,
           yaw: spin.yaw, pitch: 0.3 + (0.5 - p) * 0.5 + spin.ty * 0.2, roll: spin.tx * 0.14,
           dark: 0, alpha: 1, shadow: 0.8,
         });
+      },
+    };
+  }
+  const gemBoxes = $$('[data-gem-box]').map(GemBox).filter(Boolean);
+
+  /* browser frames grow to full size as they scroll in */
+  const grow = (() => {
+    const els = $$('[data-grow]'); if (!els.length || reduce) return null;
+    let geo = [];
+    return {
+      measure() { geo = els.map((el) => { el.style.transform = ''; return [absTop(el), el.offsetHeight]; }); },
+      update() {
+        for (let i = 0; i < els.length; i++) {
+          const [t, h] = geo[i];
+          if (sy + vh < t - 80 || sy > t + h) continue;
+          const k = smooth(0, 1, (sy + vh - t) / (vh * 0.85));
+          els[i].style.transform = `scale(${lerp(0.86, 1, k).toFixed(4)})`;
+        }
+      },
+    };
+  })();
+
+  /* depth: elements drift against the scroll (phones on the projects page) */
+  const depth = (() => {
+    const els = $$('[data-depth]'); if (!els.length || reduce) return null;
+    let geo = [];
+    return {
+      measure() { geo = els.map((el) => { el.style.transform = ''; return [absTop(el) + el.offsetHeight / 2, +el.dataset.depth || 0]; }); },
+      update() {
+        for (let i = 0; i < els.length; i++) {
+          const d = geo[i][0] - (sy + vh / 2);
+          if (Math.abs(d) > vh * 1.5) continue;
+          els[i].style.transform = `translate3d(0,${(d * geo[i][1]).toFixed(1)}px,0)`;
+        }
       },
     };
   })();
@@ -463,7 +498,7 @@
   })();
 
   /* ================= LOOP ================= */
-  const mods = [hero, manifest, marquee, services, zoom, team, stack, contact, footer, chrome].filter(Boolean);
+  const mods = [hero, manifest, marquee, services, zoom, team, stack, ...gemBoxes, grow, depth, footer, chrome].filter(Boolean);
 
   function measure() {
     vw = innerWidth; vh = innerHeight;
@@ -486,6 +521,76 @@
     for (const m of mods) m.update(dt);
     requestAnimationFrame(frame);
   }
+
+  /* ---------- recordings of live sites: play only while on screen ---------- */
+  const videos = $$('video[data-autoplay]');
+  if (videos.length && !reduce) {
+    const vio = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) { const pr = e.target.play(); if (pr && pr.catch) pr.catch(() => {}); }
+        else e.target.pause();
+      }
+    }, { threshold: 0.15 });
+    videos.forEach((v) => vio.observe(v));
+  }
+
+  /* ---------- before / after: drag or tap anywhere on the picture, or use the arrow keys ----------
+     touch-action: pan-y keeps vertical swipes scrolling the page. */
+  $$('[data-compare]').forEach((box) => {
+    const range = $('.ba-range', box);
+    let drag = false, moved = false, touched = false, id = null, px0 = 0, py0 = 0, axis = null;
+    const set = (v) => {
+      const pos = clamp(v, 0, 100);
+      box.style.setProperty('--pos', pos.toFixed(2) + '%');
+      if (range) range.value = Math.round(pos);
+    };
+    const fromX = (x) => { const r = box.getBoundingClientRect(); set(((x - r.left) / r.width) * 100); };
+    const stop = () => { drag = false; id = null; box.classList.remove('dragging'); };
+    box.addEventListener('pointerdown', (e) => {
+      if (e.button > 0) return;
+      drag = true; moved = false; touched = true; id = e.pointerId;
+      px0 = e.clientX; py0 = e.clientY;
+      axis = e.pointerType === 'mouse' ? 'x' : null;   // touch: wait until the swipe has a direction
+      box.classList.add('dragging');
+      if (axis) { e.preventDefault(); fromX(e.clientX); }
+    });
+    addEventListener('pointermove', (e) => {
+      if (!drag || e.pointerId !== id) return;
+      if (!axis) {
+        const dx = Math.abs(e.clientX - px0), dy = Math.abs(e.clientY - py0);
+        if (dx < 6 && dy < 6) return;
+        axis = dx > dy ? 'x' : 'y';
+      }
+      if (axis !== 'x') return;   // vertical swipe: the page scrolls, the slider stays
+      moved = true;
+      fromX(e.clientX);
+    }, { passive: true });
+    addEventListener('pointerup', (e) => {
+      if (!drag || e.pointerId !== id) return;
+      if (!moved && axis !== 'y') fromX(e.clientX);   // a tap jumps there
+      stop();
+    });
+    addEventListener('pointercancel', (e) => { if (e.pointerId === id) stop(); });
+    if (range) range.addEventListener('input', () => { touched = true; set(+range.value); });
+
+    // once, when it comes into view: a short sweep that says "move me"
+    if (reduce) return;
+    const hint = new IntersectionObserver((entries) => {
+      if (!entries[0].isIntersecting) return;
+      hint.disconnect();
+      setTimeout(() => {
+        const t0 = performance.now();
+        const tick = (now) => {
+          if (touched) return;
+          const t = clamp((now - t0) / 2400);
+          set(50 + Math.sin(t * Math.PI * 2) * 22 * (1 - 0.4 * t));
+          if (t < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      }, 450);
+    }, { threshold: 0.6 });
+    hint.observe(box);
+  });
 
   /* ---------- mobile menu ---------- */
   const burger = $('.burger'), menu = $('#menu');
@@ -537,7 +642,7 @@
   const fonts = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
   Promise.race([fonts, new Promise((r) => setTimeout(r, 2500))]).then(() => {
     measure();
-    const wait = reduce ? 0 : Math.max(0, 1500 - (performance.now() - t0));
+    const wait = reduce || !loader ? 0 : Math.max(0, 1500 - (performance.now() - t0));
     setTimeout(() => {
       if (loader) {
         loader.classList.add('done');

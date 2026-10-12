@@ -1,0 +1,47 @@
+<a class="skip" href="#main">{{skip}}</a>
+
+<svg class="defs" aria-hidden="true" focusable="false">
+  <symbol id="mark" viewBox="0 0 24 24"><path style="fill:currentColor" d="M7 3.5h10l5.5 6L12 21.5 1.5 9.5z"/><path style="fill:none;stroke:var(--bg,#fff);stroke-width:1.1;stroke-linejoin:round" d="M1.5 9.5h21M7 3.5l2.5 6 2.5-6 2.5 6 2.5-6M9.5 9.5 12 21.5l2.5-12"/></symbol>
+  <symbol id="arr" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="arr-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
+  <symbol id="arr-out" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></symbol>
+</svg>
+
+<header class="nav" id="nav">
+  <a class="brand" href="{{home}}#top" aria-label="{{brand}}">
+    <svg class="mark" aria-hidden="true"><use href="#mark"/></svg><span class="wm">{{wordmark}}</span>
+  </a>
+  <nav class="nav-links" aria-label="{{nav_menu}}">
+    <a href="{{home}}#manifest">{{nav_manifest}}</a>
+    <a href="{{home}}#services">{{nav_services}}</a>
+    <a href="{{href_projects}}"{{cur_projects}}>{{nav_projects}}</a>
+    <a href="{{home}}#team">{{nav_team}}</a>
+    <a href="{{home}}#process">{{nav_process}}</a>
+    <a href="{{home}}#contact">{{nav_contact}}</a>
+  </nav>
+  <div class="nav-right">
+    <div class="lang">
+      <a href="{{href_de}}" hreflang="de" lang="de"{{cur_de}}>DE</a><a href="{{href_en}}" hreflang="en" lang="en"{{cur_en}}>EN</a>
+    </div>
+    <a class="btn btn-solid btn-small" href="{{home}}#contact"><span>{{nav_cta}}</span></a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="menu">
+      <span class="sr" data-open="{{nav_menu}}" data-close="{{nav_close}}">{{nav_menu}}</span><i></i><i></i>
+    </button>
+  </div>
+  <div class="progress" aria-hidden="true"><i></i></div>
+</header>
+
+<div class="menu" id="menu" hidden>
+  <nav class="menu-links" aria-label="{{nav_menu}}">
+    <a href="{{home}}#manifest"><i>01</i>{{nav_manifest}}</a>
+    <a href="{{home}}#services"><i>02</i>{{nav_services}}</a>
+    <a href="{{href_projects}}"{{cur_projects}}><i>03</i>{{nav_projects}}</a>
+    <a href="{{home}}#team"><i>04</i>{{nav_team}}</a>
+    <a href="{{home}}#process"><i>05</i>{{nav_process}}</a>
+    <a href="{{home}}#contact"><i>06</i>{{nav_contact}}</a>
+  </nav>
+  <div class="menu-foot">
+    <div class="lang"><a href="{{href_de}}" hreflang="de" lang="de"{{cur_de}}>DE</a><a href="{{href_en}}" hreflang="en" lang="en"{{cur_en}}>EN</a></div>
+    <a href="{{github}}" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+</div>

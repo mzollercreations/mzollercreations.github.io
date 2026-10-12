@@ -7,10 +7,14 @@ Live: https://mzollercreations.github.io/ (Deutsch) · https://mzollercreations.
 
 ## Aufbau
 
-- `src/index.html` – Vorlage der Seite
+- `src/index.html` – Vorlage der Startseite
+- `src/projects.html` – Projektseite (`/projekte/`, `/en/projects/`): Fallstudie Melanie’s Massage
+  mit Scroll-Video, Vorher/Nachher-Regler, Screenshots und Handy-Ansichten
+- `src/partials/` – gemeinsame Teile (Kopf, Navigation, Fußzeile), eingebunden mit `{{> name}}`
 - `src/i18n/de.json`, `src/i18n/en.json` – alle Texte
 - `site.json` – Markenname, URL, GitHub-Link und (optional) Kontakt-E-Mail
 - `assets/` – CSS, JavaScript, Schriften (lokal, kein Google-CDN), Bilder
+- `assets/img/work/`, `assets/video/` – Screenshots (WebP) und Scroll-Videos (H.264) der Kundenprojekte
 - `docs/` – erzeugte Seite, wird von GitHub Pages ausgeliefert
 
 Nach jeder Änderung neu bauen:
