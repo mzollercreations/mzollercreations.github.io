@@ -1,23 +1,25 @@
-/* mzollercreations — scroll choreography
+/* Sapphire Creators — scroll choreography
    No libraries: native scrolling + position: sticky stages, one rAF loop
    that reads a smoothed scroll value and drives every effect from cached
-   geometry (no layout reads per frame). */
+   geometry (no layout reads per frame). The stone itself lives in gem.js. */
 (function () {
   'use strict';
 
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   const clamp = (v, a = 0, b = 1) => (v < a ? a : v > b ? b : v);
+  const lerp = (a, b, t) => a + (b - a) * t;
   const smooth = (a, b, v) => { const t = clamp((v - a) / (b - a)); return t * t * (3 - 2 * t); };
   const absTop = (el) => el.getBoundingClientRect().top + scrollY;
 
   const root = document.documentElement;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
-  const Field = window.Field;
+  const Gem = window.Gem;
 
   let vw = innerWidth, vh = innerHeight, docH = 1;
   let y = scrollY, sy = y, prevSy = sy, vel = 0, clock = 0;
+  let mx = vw / 2, my = vh / 2;   // pointer, viewport px
 
   /* ---------- word splitting ---------- */
   function splitWords(el, cls) {
@@ -40,7 +42,7 @@
     for (const node of Array.from(el.childNodes)) {
       if (node.nodeType === 3) words(node.textContent);
       else if (node.nodeName === 'BR') frag.appendChild(document.createElement('br'));
-      else if (node.nodeType === 1) words(node.textContent, node.nodeName === 'EM' ? 'grad-word' : node.className);
+      else if (node.nodeType === 1) words(node.textContent, node.nodeName === 'EM' ? 'it' : node.className);
     }
     el.textContent = '';
     el.appendChild(frag);
@@ -77,22 +79,128 @@
   }, { threshold: 0.6 });
   $$('[data-count-from]').forEach((el) => countIO.observe(el));
 
+  if (finePointer) addEventListener('pointermove', (e) => { mx = e.clientX; my = e.clientY; }, { passive: true });
+
+  /* ---------- turning the stone: slow spin + horizontal drag with inertia ----------
+     touch-action: pan-y on the stage keeps vertical swipes scrolling the page. */
+  function Spinner(el, hit) {
+    const s = { yaw: 0.5, vel: reduce ? 0 : 0.36, base: reduce ? 0 : 0.36, drag: false, tx: 0, ty: 0 };
+    let id = null, px = 0, last = 0;
+    el.addEventListener('pointerdown', (e) => {
+      if (e.button > 0 || !hit(e.clientX, e.clientY)) return;
+      s.drag = true; id = e.pointerId; px = e.clientX; last = performance.now(); s.vel = 0;
+      el.classList.add('grabbing');
+    });
+    const end = (e) => {
+      if (!s.drag || e.pointerId !== id) return;
+      s.drag = false; id = null;
+      el.classList.remove('grabbing');
+    };
+    addEventListener('pointermove', (e) => {
+      if (finePointer && !s.drag) el.classList.toggle('grab', hit(e.clientX, e.clientY));
+      if (!s.drag || e.pointerId !== id) return;
+      const now = performance.now(), d = (e.clientX - px) * 0.011;
+      px = e.clientX;
+      s.yaw += d;
+      s.vel = s.vel * 0.5 + (d / Math.max(0.008, (now - last) / 1000)) * 0.5;
+      last = now;
+    }, { passive: true });
+    addEventListener('pointerup', end);
+    addEventListener('pointercancel', end);
+    s.step = (dt, cx, cy) => {
+      if (!s.drag) {
+        s.vel += (s.base - s.vel) * (1 - Math.exp(-dt * 1.4));
+        s.yaw += s.vel * dt;
+      }
+      // the stone leans a little towards the pointer
+      const tx = finePointer ? clamp((mx - cx) / vw, -0.6, 0.6) : 0;
+      const ty = finePointer ? clamp((my - cy) / vh, -0.6, 0.6) : 0;
+      s.tx += (tx - s.tx) * (1 - Math.exp(-dt * 3));
+      s.ty += (ty - s.ty) * (1 - Math.exp(-dt * 3));
+    };
+    return s;
+  }
+
   /* ================= MODULES ================= */
 
-  /* hero: lines drift apart, content fades */
+  /* hero: the stone turns beside the headline, then we fall into it */
   const hero = (() => {
-    const sec = $('.hero'); if (!sec) return null;
-    const lines = $$('.line', sec).map((el) => ({ el, d: +el.dataset.depth || 0 }));
-    const inner = $('.hero-inner', sec), meta = $('.hero-meta', sec);
-    let h = 1;
+    const sec = $('.hero'); if (!sec || !Gem) return null;
+    const stage = $('.hero-stage', sec), copy = $('.hero-copy', sec), meta = $('.hero-meta', sec);
+    const slot = $('#hero-slot'), voidEl = $('.hero-void', sec), canvas = $('#gem-hero');
+    const extras = $$('.gem-slot > *', sec);
+    const gem = Gem(canvas);
+    let top = 0, span = 1, W = 1, H = 1, sx = 0, sy0 = 0, sr = 0, gx = 0, gy = 0, gr = 0, dark = 0, last = '';
+    const spin = Spinner(stage, (x, yy) => Math.hypot(x - gx, yy - gy) < gr * 1.45);
     return {
-      measure() { h = sec.offsetHeight; },
+      measure() {
+        top = absTop(sec);
+        span = Math.max(1, sec.offsetHeight - stage.offsetHeight);
+        W = stage.clientWidth; H = stage.clientHeight;
+        const a = slot.getBoundingClientRect(), b = stage.getBoundingClientRect();
+        sx = a.left - b.left + a.width / 2;
+        sy0 = a.top - b.top + a.height / 2;
+        sr = Math.min(a.width, a.height) * 0.36;
+        gem.resize();
+      },
+      update(dt) {
+        if (y > top + span + vh) { dark = 1; return; }
+        const p = clamp((sy - top) / span);
+        spin.step(dt, gx, gy);
+
+        // copy drifts up and fades
+        const out = smooth(0, 0.26, p);
+        copy.style.transform = `translate3d(0,${(-out * 70).toFixed(1)}px,0)`;
+        copy.style.opacity = (1 - out).toFixed(3);
+        const o2 = (1 - smooth(0, 0.12, p)).toFixed(3);
+        meta.style.opacity = o2;
+        for (const e of extras) e.style.opacity = o2;
+
+        // the stone glides to the centre, tips its table to the camera and grows
+        const m = smooth(0.04, 0.58, p), z = smooth(0.5, 1, p);
+        const bob = reduce ? 0 : Math.sin(clock * 1.1) * sr * 0.03 * (1 - m);
+        gx = lerp(sx, W / 2, m);
+        gy = lerp(sy0, H / 2, m) + bob;
+        gr = lerp(sr, Math.min(W, H) * 0.3, m) * Math.pow(10, z * z);
+        const pitch = lerp(0.4, 1.32, smooth(0.12, 0.72, p)) + spin.ty * 0.22 * (1 - m);
+
+        // the black opens from behind the stone
+        const v = smooth(0.36, 0.86, p);
+        const R = Math.hypot(Math.max(gx, W - gx), Math.max(gy, H - gy)) + 2;
+        const clip = `circle(${(v * v * R).toFixed(1)}px at ${gx.toFixed(1)}px ${gy.toFixed(1)}px)`;
+        if (clip !== last) { voidEl.style.clipPath = clip; last = clip; }
+        dark = v;
+
+        gem.draw({
+          x: gx, y: gy, r: gr,
+          yaw: spin.yaw, pitch, roll: spin.tx * 0.16 * (1 - m),
+          dark: smooth(0.3, 0.6, p),
+          alpha: 1 - smooth(0.8, 0.97, p),
+          shadow: 1 - smooth(0.02, 0.22, p),
+          fire: 1 - 0.75 * z,
+          table: 1 - 0.8 * smooth(0.2, 0.62, p),
+        });
+      },
+      dark() { return y <= top + span && dark > 0.5; },
+    };
+  })();
+
+  /* manifest: words light up one after another */
+  const manifest = (() => {
+    const sec = $('.manifest'); if (!sec) return null;
+    const text = $('.manifest-text', sec);
+    const n = splitWords(text, 'w');
+    const words = $$('.w', text);
+    const stage = $('.sticky', sec);
+    let top = 0, span = 1, last = -1;
+    return {
+      measure() { top = absTop(sec); span = Math.max(1, sec.offsetHeight - stage.offsetHeight); },
       update() {
-        if (sy > h * 1.2) return;
-        for (const l of lines) l.el.style.transform = `translate3d(0,${(-sy * l.d).toFixed(1)}px,0)`;
-        const o = 1 - smooth(h * 0.12, h * 0.7, sy);
-        inner.style.opacity = o.toFixed(3);
-        meta.style.opacity = o.toFixed(3);
+        const p = clamp((sy - top + vh * 0.2) / (span + vh * 0.1));
+        const f = smooth(0.05, 0.86, p) * (n + 1.5);
+        if (Math.abs(f - last) < 0.004) return;
+        last = f;
+        for (let i = 0; i < n; i++) words[i].style.opacity = (0.16 + 0.84 * clamp(f - i)).toFixed(3);
       },
     };
   })();
@@ -110,33 +218,13 @@
       update(dt) {
         if (y + vh < top - 50 || y > bot + 50) return;
         if (vel > 0.4) sign = 1; else if (vel < -0.4) sign = -1;
-        const speed = reduce ? 0 : 46 + Math.min(Math.abs(vel), 40) * 26;
+        const speed = reduce ? 0 : 40 + Math.min(Math.abs(vel), 40) * 24;
         for (const r of rows) {
           r.x += r.dir * sign * speed * dt;
           if (r.x <= -r.w) r.x += r.w;
           if (r.x > 0) r.x -= r.w;
           r.el.style.transform = `translate3d(${r.x.toFixed(1)}px,0,0)`;
         }
-      },
-    };
-  })();
-
-  /* manifest: words light up one after another */
-  const manifest = (() => {
-    const sec = $('.manifest'); if (!sec) return null;
-    const text = $('.manifest-text', sec);
-    const n = splitWords(text, 'w');
-    const words = $$('.w', text);
-    const stage = $('.sticky', sec);
-    let top = 0, span = 1, last = -1;
-    return {
-      measure() { top = absTop(sec); span = Math.max(1, sec.offsetHeight - stage.offsetHeight); },
-      update() {
-        const p = clamp((sy - top + vh * 0.25) / (span + vh * 0.1));
-        const f = smooth(0.04, 0.86, p) * (n + 1.5);
-        if (Math.abs(f - last) < 0.004) return;
-        last = f;
-        for (let i = 0; i < n; i++) words[i].style.opacity = (0.14 + 0.86 * clamp(f - i)).toFixed(3);
       },
     };
   })();
@@ -168,11 +256,11 @@
         track.style.transform = `translate3d(${x.toFixed(1)}px,0,0)`;
         bar.style.transform = `scaleX(${q.toFixed(4)})`;
         const i = Math.min(cards.length, 1 + Math.round(q * (cards.length - 1)));
-        if (i !== idx) { idx = i; count.textContent = String(i).padStart(2, '0'); }
+        if (i !== idx) { idx = i; count.textContent = pad(i); }
         for (let k = 0; k < cards.length; k++) {
           if (!vis[k]) continue;
           const rel = (cx[k] + x - vw / 2) / (vw / 2 + cw);
-          vis[k].style.transform = `translate3d(${(rel * -36).toFixed(1)}px,0,0)`;
+          vis[k].style.transform = `translate3d(${(rel * -30).toFixed(1)}px,0,0)`;
         }
         // live timecode + countdown in the card visuals
         const fr = Math.floor(clock * 25);
@@ -189,7 +277,7 @@
     };
   })();
 
-  /* zoom: headline flies into the camera, a light disc opens */
+  /* zoom: headline flies into the camera, a black disc opens */
   const zoom = (() => {
     const sec = $('.zoom'); if (!sec) return null;
     const stage = $('.sticky', sec), bigP = $('.zoom-big', sec), big = $('.zoom-big span', sec);
@@ -209,8 +297,7 @@
         if (y + vh < top || y > top + span + vh) { d = y > top ? 1 : 0; return; }
         const p = clamp((sy - top) / span);
         const a = smooth(0.02, 0.62, p);
-        const s = Math.pow(26, a * a);
-        big.style.transform = `scale(${s.toFixed(4)})`;
+        big.style.transform = `scale(${Math.pow(26, a * a).toFixed(4)})`;
         big.style.opacity = (1 - smooth(0.5, 0.64, p)).toFixed(3);
         d = smooth(0.3, 0.74, p);
         disc.style.clipPath = `circle(${(d * d * R).toFixed(1)}px at 50% 50%)`;
@@ -218,13 +305,11 @@
         inner.style.opacity = t.toFixed(3);
         inner.style.transform = `translate3d(0,${((1 - t) * 40).toFixed(1)}px,0) scale(${(0.94 + 0.06 * t).toFixed(4)})`;
       },
-      // nav colour + canvas skipping
-      full() { return d > 0.999 && y >= top && y <= top + span; },
-      range() { return [top, top + span]; },
+      dark() { return y >= top && y <= top + span + vh && d > 0.6; },
     };
   })();
 
-  /* team: light section bounds + typing code */
+  /* team: typing code */
   const team = (() => {
     const sec = $('.team'); if (!sec) return null;
     const code = $('[data-type]', sec), win = $('.code', sec);
@@ -249,12 +334,9 @@
     }
     const caret = document.createElement('span');
     caret.className = 'caret';
-    let top = 0, bot = 0, ctop = 0, n = -1;
+    let ctop = 0, n = -1;
     return {
-      measure() {
-        top = absTop(sec); bot = top + sec.offsetHeight;
-        ctop = win ? absTop(win) : 0;
-      },
+      measure() { ctop = win ? absTop(win) : 0; },
       update() {
         if (!chars.length) return;
         const p = reduce ? 1 : clamp((sy + vh * 0.9 - ctop) / (vh * 0.7));
@@ -266,11 +348,10 @@
         if (k <= 0) chars[0].before(caret);
         else chars[k - 1].after(caret);
       },
-      bounds() { return [top, bot]; },
     };
   })();
 
-  /* process: cards stack and recede */
+  /* process: cards stack and recede, white → black */
   const stack = (() => {
     const cards = $$('.pcard'); if (!cards.length) return null;
     const shades = cards.map((c) => $('.pcard-shade', c));
@@ -295,13 +376,42 @@
           let depth = 0;
           for (let j = i; j < L - 1; j++) depth += cover[j];
           cards[i].style.transform = depth > 0.001 ? `scale(${(1 - depth * 0.045).toFixed(4)})` : '';
-          shades[i].style.opacity = Math.min(0.62, depth * 0.36).toFixed(3);
+          shades[i].style.opacity = Math.min(0.5, depth * 0.3).toFixed(3);
         }
       },
     };
   })();
 
-  /* footer: giant wordmark fitted to the width, gradient follows scroll */
+  /* contact: the stone comes back, inside its text ring */
+  const contact = (() => {
+    const box = $('#contact-slot'), canvas = $('#gem-contact');
+    if (!box || !canvas || !Gem) return null;
+    const gem = Gem(canvas);
+    let top = 0, left = 0, h = 1, W = 1, H = 1, cx = 0, cy = 0, idle = false;
+    const spin = Spinner(box, (x, yy) => Math.hypot(x - cx, yy - cy) < W * 0.42);
+    return {
+      measure() {
+        const r = box.getBoundingClientRect();
+        top = r.top + scrollY; left = r.left;
+        h = box.offsetHeight; W = box.clientWidth; H = box.clientHeight;
+        gem.resize();
+      },
+      update(dt) {
+        if (y + vh < top || y > top + h) { if (!idle) { gem.draw({ alpha: 0 }); idle = true; } return; }
+        idle = false;
+        const p = clamp((y + vh - top) / (vh + h));
+        cx = left + W / 2; cy = top - y + H / 2;
+        spin.step(dt, cx, cy);
+        gem.draw({
+          x: W / 2, y: H / 2 - W * 0.03, r: W * 0.27,
+          yaw: spin.yaw, pitch: 0.3 + (0.5 - p) * 0.5 + spin.ty * 0.2, roll: spin.tx * 0.14,
+          dark: 0, alpha: 1, shadow: 0.8,
+        });
+      },
+    };
+  })();
+
+  /* footer: giant wordmark fitted to the width, a light sweeps across it */
   const footer = (() => {
     const box = $('.footer-word'); if (!box) return null;
     const span = $('span', box);
@@ -317,16 +427,18 @@
       update() {
         if (y + vh < top) return;
         const p = clamp((y + vh - top) / vh);
-        span.style.backgroundPosition = `${(p * 150).toFixed(1)}% 50%`;
+        span.style.backgroundPosition = `${(100 - p * 100).toFixed(1)}% 50%`;
       },
     };
   })();
 
-  /* nav: hide on scroll down, colour on light sections, progress bar */
+  /* nav: hide on scroll down, invert over black sections, progress bar */
   const chrome = (() => {
-    const nav = $('#nav'), bar = $('.progress i');
-    let anchorY = y, hidden = false, light = false, scrolled = false;
+    const nav = $('#nav'), bar = $('.progress i'), theme = $('meta[name="theme-color"]');
+    const darks = $$('[data-dark]');
+    let ranges = [], anchorY = y, hidden = false, onDark = false, scrolled = false;
     return {
+      measure() { ranges = darks.map((el) => { const t = absTop(el); return [t, t + el.offsetHeight]; }); },
       update() {
         const max = Math.max(1, docH - vh);
         bar.style.transform = `scaleX(${clamp(y / max).toFixed(4)})`;
@@ -337,46 +449,26 @@
           anchorY = y;
           if (h !== hidden) { hidden = h; nav.classList.toggle('hide', h); }
         }
-        let l = false;
-        if (team) { const [a, b] = team.bounds(); l = y + 36 >= a && y + 36 < b; }
-        if (!l && zoom && zoom.full()) l = true;
-        if (l !== light) { light = l; nav.classList.toggle('light', l); }
-      },
-    };
-  })();
-
-  /* particle scenes: anchors = tops of [data-scene] sections */
-  const scenes = (() => {
-    const secs = $$('[data-scene]').sort((a, b) => a.dataset.scene - b.dataset.scene);
-    let B = [];
-    return {
-      measure() { B = secs.map(absTop); },
-      value() {
-        let f = 0;
-        for (let k = 1; k < B.length; k++) {
-          const t = smooth(B[k] - vh * 0.95, B[k] - vh * 0.12, sy);
-          if (t <= 0) break;
-          f = k - 1 + t;
+        const probe = y + 36;
+        let d = ranges.some(([a, b]) => probe >= a && probe < b);
+        if (!d && hero && hero.dark()) d = true;
+        if (!d && zoom && zoom.dark()) d = true;
+        if (d !== onDark) {
+          onDark = d;
+          nav.classList.toggle('on-dark', d);
+          if (theme) theme.content = d ? '#0a0a0a' : '#ffffff';
         }
-        return f;
       },
     };
   })();
-
-  function covered() {
-    if (zoom && zoom.full()) return true;
-    if (team) { const [a, b] = team.bounds(); if (y >= a && y + vh <= b - 2) return true; }
-    return false;
-  }
 
   /* ================= LOOP ================= */
-  const mods = [hero, marquee, manifest, services, zoom, team, stack, footer].filter(Boolean);
+  const mods = [hero, manifest, marquee, services, zoom, team, stack, contact, footer, chrome].filter(Boolean);
 
   function measure() {
     vw = innerWidth; vh = innerHeight;
     if (services) services.measure();          // sets its own height first
-    for (const m of mods) if (m !== services) m.measure();
-    scenes.measure();
+    for (const m of mods) if (m !== services && m.measure) m.measure();
     docH = document.documentElement.scrollHeight;
   }
 
@@ -391,42 +483,8 @@
     const v = (sy - prevSy) / Math.max(dt * 60, 0.001);
     vel += (v - vel) * 0.2;
     prevSy = sy;
-
     for (const m of mods) m.update(dt);
-    chrome.update();
-    if (Field) Field.render(dt, scenes.value(), vel, sy, covered());
     requestAnimationFrame(frame);
-  }
-
-  /* ---------- cursor + magnetic buttons ---------- */
-  if (finePointer && !reduce) {
-    root.classList.add('has-cursor');
-    const cur = $('.cursor');
-    let cx = -100, cy = -100, tx = -100, ty = -100;
-    addEventListener('pointermove', (e) => { tx = e.clientX; ty = e.clientY; }, { passive: true });
-    document.addEventListener('pointerover', (e) => {
-      cur.classList.toggle('hover', !!e.target.closest('a, button, .card'));
-    });
-    document.addEventListener('pointerleave', () => cur.classList.add('hidden'));
-    document.addEventListener('pointerenter', () => cur.classList.remove('hidden'));
-    (function follow() {
-      cx += (tx - cx) * 0.2; cy += (ty - cy) * 0.2;
-      cur.style.transform = `translate3d(${cx.toFixed(1)}px,${cy.toFixed(1)}px,0)`;
-      requestAnimationFrame(follow);
-    })();
-
-    $$('[data-magnetic]').forEach((el) => {
-      el.addEventListener('pointermove', (e) => {
-        const r = el.getBoundingClientRect();
-        const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
-        el.style.translate = `${(dx * 0.22).toFixed(1)}px ${(dy * 0.3).toFixed(1)}px`;
-      });
-      el.addEventListener('pointerleave', () => {
-        el.style.transition = 'translate .6s cubic-bezier(.16,1,.3,1), color .4s, box-shadow .5s';
-        el.style.translate = '';
-        setTimeout(() => { el.style.transition = ''; }, 600);
-      });
-    });
   }
 
   /* ---------- mobile menu ---------- */
@@ -459,7 +517,6 @@
     clearTimeout(rT);
     rT = setTimeout(() => {
       const w = innerWidth, h = innerHeight;
-      if (Field) Field.resize();
       // iOS toolbars change the height while scrolling: only re-layout on real changes
       if (w !== lastW || Math.abs(h - lastH) > 150) { lastW = w; lastH = h; measure(); }
       else vh = h;
@@ -480,14 +537,15 @@
   const fonts = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
   Promise.race([fonts, new Promise((r) => setTimeout(r, 2500))]).then(() => {
     measure();
-    const wait = reduce ? 0 : Math.max(0, 1150 - (performance.now() - t0));
+    const wait = reduce ? 0 : Math.max(0, 1500 - (performance.now() - t0));
     setTimeout(() => {
       if (loader) {
         loader.classList.add('done');
         setTimeout(() => loader.remove(), 1200);
       }
       root.classList.add('ready');
-      if (Field) Field.start();
+      // intro transitions done → scroll-linked fades must not lag behind
+      setTimeout(() => root.classList.add('settled'), 1900);
     }, wait);
   });
   addEventListener('load', measure);

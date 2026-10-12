@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{{meta_title}}</title>
 <meta name="description" content="{{meta_desc}}">
-<meta name="theme-color" content="#09090b">
+<meta name="theme-color" content="#ffffff">
 <link rel="canonical" href="{{canonical}}">
 <link rel="alternate" hreflang="de" href="{{url_de}}">
 <link rel="alternate" hreflang="en" href="{{url_en}}">
 <link rel="alternate" hreflang="x-default" href="{{url_de}}">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="mzollercreations">
+<meta property="og:site_name" content="{{brand}}">
 <meta property="og:title" content="{{meta_title}}">
 <meta property="og:description" content="{{meta_desc}}">
 <meta property="og:url" content="{{canonical}}">
@@ -19,7 +19,8 @@
 <meta property="og:locale" content="{{locale}}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="{{base}}assets/img/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="{{base}}assets/fonts/bricolage-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{base}}assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{base}}assets/fonts/instrumentserif-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{{base}}assets/css/style.css?v={{v}}">
 <script>document.documentElement.classList.add('js')</script>
 </head>
@@ -27,29 +28,19 @@
 <a class="skip" href="#main">{{skip}}</a>
 
 <svg class="defs" aria-hidden="true" focusable="false">
-  <defs>
-    <linearGradient id="g24" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="24" y2="24">
-      <stop offset="0" stop-color="#39d5ff"/><stop offset=".38" stop-color="#7c5cff"/><stop offset=".7" stop-color="#ff5ca8"/><stop offset="1" stop-color="#ffb03a"/>
-    </linearGradient>
-    <linearGradient id="g200" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="200" y2="200">
-      <stop offset="0" stop-color="#39d5ff"/><stop offset=".38" stop-color="#7c5cff"/><stop offset=".7" stop-color="#ff5ca8"/><stop offset="1" stop-color="#ffb03a"/>
-    </linearGradient>
-  </defs>
+  <symbol id="mark" viewBox="0 0 24 24"><path style="fill:currentColor" d="M7 3.5h10l5.5 6L12 21.5 1.5 9.5z"/><path style="fill:none;stroke:var(--bg,#fff);stroke-width:1.1;stroke-linejoin:round" d="M1.5 9.5h21M7 3.5l2.5 6 2.5-6 2.5 6 2.5-6M9.5 9.5 12 21.5l2.5-12"/></symbol>
+  <symbol id="arr" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="arr-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
 </svg>
 
 <div class="loader" aria-hidden="true">
+  <svg class="loader-mark" viewBox="0 0 24 24"><path d="M7 3.5h10l5.5 6L12 21.5 1.5 9.5zM1.5 9.5h21M7 3.5l2.5 6 2.5-6 2.5 6 2.5-6M9.5 9.5 12 21.5l2.5-12" pathLength="1"/></svg>
   <div class="loader-word">{{loader_letters}}</div>
-  <div class="loader-line"><i></i></div>
 </div>
 
-<canvas class="field" id="field" aria-hidden="true"></canvas>
-<div class="grain" aria-hidden="true"></div>
-<div class="progress" aria-hidden="true"><i></i></div>
-<div class="cursor" aria-hidden="true"><i></i></div>
-
 <header class="nav" id="nav">
-  <a class="brand" href="#top" aria-label="mzollercreations">
-    <span class="brand-mark"></span><span class="brand-word">mzoller<b>creations</b></span>
+  <a class="brand" href="#top" aria-label="{{brand}}">
+    <svg class="mark" aria-hidden="true"><use href="#mark"/></svg><span class="wm">{{wordmark}}</span>
   </a>
   <nav class="nav-links" aria-label="{{nav_menu}}">
     <a href="#manifest">{{nav_manifest}}</a>
@@ -62,11 +53,12 @@
     <div class="lang">
       <a href="{{href_de}}" hreflang="de" lang="de"{{cur_de}}>DE</a><a href="{{href_en}}" hreflang="en" lang="en"{{cur_en}}>EN</a>
     </div>
-    <a class="btn btn-primary btn-small" href="#contact" data-magnetic><span>{{nav_cta}}</span></a>
+    <a class="btn btn-solid btn-small" href="#contact"><span>{{nav_cta}}</span></a>
     <button class="burger" type="button" aria-expanded="false" aria-controls="menu">
       <span class="sr" data-open="{{nav_menu}}" data-close="{{nav_close}}">{{nav_menu}}</span><i></i><i></i>
     </button>
   </div>
+  <div class="progress" aria-hidden="true"><i></i></div>
 </header>
 
 <div class="menu" id="menu" hidden>
@@ -85,38 +77,41 @@
 
 <main id="main">
 
-<!-- ============ HERO ============ -->
-<section class="hero" id="top" data-scene="0">
-  <div class="wrap hero-inner">
-    <p class="eyebrow"><span class="dot"></span>{{hero_eyebrow}}</p>
-    <h1 class="hero-title">
-      <span class="line" data-depth=".05"><span class="line-in" style="--d:0">{{hero_l1}}</span></span>
-      <span class="line" data-depth=".11"><span class="line-in" style="--d:.09">{{hero_l2}}</span></span>
-      <span class="line" data-depth=".17"><span class="line-in" style="--d:.18">{{hero_l3}}</span></span>
-    </h1>
-    <div class="hero-row">
-      <p class="hero-sub">{{hero_sub}}</p>
-      <div class="hero-ctas">
-        <a class="btn btn-primary" href="#contact" data-magnetic><span>{{hero_btn1}}</span><svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a class="btn btn-ghost" href="#services"><span>{{hero_btn2}}</span><svg class="arr arr-down" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+<!-- ============ HERO: the stone, then into it ============ -->
+<section class="hero" id="top">
+  <div class="hero-stage">
+    <div class="hero-void" aria-hidden="true"></div>
+    <canvas class="gem-canvas" id="gem-hero" aria-hidden="true"></canvas>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow"><svg class="mark" aria-hidden="true"><use href="#mark"/></svg>{{hero_eyebrow}}</p>
+        <h1 class="hero-title">
+          <span class="line"><span class="line-in" style="--d:0">{{hero_l1}}</span></span>
+          <span class="line"><span class="line-in" style="--d:.08">{{hero_l2}}</span></span>
+          <span class="line"><span class="line-in" style="--d:.16">{{hero_l3}}</span></span>
+        </h1>
+        <p class="hero-sub">{{hero_sub}}</p>
+        <div class="hero-ctas">
+          <a class="btn btn-solid" href="#contact"><span>{{hero_btn1}}</span><svg class="arr" aria-hidden="true"><use href="#arr"/></svg></a>
+          <a class="btn btn-line" href="#services"><span>{{hero_btn2}}</span><svg class="arr" aria-hidden="true"><use href="#arr-down"/></svg></a>
+        </div>
+      </div>
+      <div class="gem-slot" id="hero-slot" aria-hidden="true">
+        <span class="spec spec-a">{{gem_spec_a}}</span>
+        <span class="spec spec-b">{{gem_spec_b}}</span>
+        <span class="drag-hint">{{gem_drag}}</span>
       </div>
     </div>
-  </div>
-  <div class="wrap hero-meta">
-    <span>{{hero_meta1}}</span>
-    <span class="scroll-cue"><i></i>{{hero_scroll}}</span>
-    <span>{{hero_meta2}}</span>
+    <div class="wrap hero-meta">
+      <span>{{hero_meta1}}</span>
+      <span class="scroll-cue"><i></i>{{hero_scroll}}</span>
+      <span>{{hero_meta2}}</span>
+    </div>
   </div>
 </section>
 
-<!-- ============ MARQUEE ============ -->
-<div class="marquee" aria-hidden="true">
-  <div class="mq-row" data-dir="-1"><div class="mq-track">{{marquee_items}}{{marquee_items}}</div></div>
-  <div class="mq-row mq-outline" data-dir="1"><div class="mq-track">{{marquee_items}}{{marquee_items}}</div></div>
-</div>
-
-<!-- ============ MANIFEST ============ -->
-<section class="manifest" id="manifest" data-scene="1">
+<!-- ============ MANIFEST (inside the stone) ============ -->
+<section class="manifest dark" id="manifest" data-dark>
   <div class="sticky">
     <div class="wrap">
       <p class="label"><i>01</i>{{manifest_label}}</p>
@@ -126,26 +121,74 @@
 </section>
 
 <!-- ============ STATS ============ -->
-<section class="stats wrap" aria-label="mzollercreations">
-  <div class="stat" data-reveal>
-    <div class="stat-num"><span data-count-from="99" data-count-to="0">0</span></div>
-    <h3>{{stat1_label}}</h3>
-    <p>{{stat1_text}}</p>
-  </div>
-  <div class="stat" data-reveal style="--d:120">
-    <div class="stat-num"><span data-count-from="0" data-count-to="100">100</span><small>%</small></div>
-    <h3>{{stat2_label}}</h3>
-    <p>{{stat2_text}}</p>
-  </div>
-  <div class="stat" data-reveal style="--d:240">
-    <div class="stat-num"><span data-count-from="9" data-count-to="1">1</span></div>
-    <h3>{{stat3_label}}</h3>
-    <p>{{stat3_text}}</p>
+<section class="stats dark" data-dark aria-label="{{brand}}">
+  <div class="wrap stats-grid">
+    <div class="stat" data-reveal>
+      <div class="stat-num"><span data-count-from="99" data-count-to="0">0</span></div>
+      <h3>{{stat1_label}}</h3>
+      <p>{{stat1_text}}</p>
+    </div>
+    <div class="stat" data-reveal style="--d:120">
+      <div class="stat-num"><span data-count-from="0" data-count-to="100">100</span><small>%</small></div>
+      <h3>{{stat2_label}}</h3>
+      <p>{{stat2_text}}</p>
+    </div>
+    <div class="stat" data-reveal style="--d:240">
+      <div class="stat-num"><span data-count-from="9" data-count-to="1">1</span></div>
+      <h3>{{stat3_label}}</h3>
+      <p>{{stat3_text}}</p>
+    </div>
   </div>
 </section>
 
+<!-- ============ WHY SAPPHIRE: a technical drawing ============ -->
+<section class="why dark" data-dark>
+  <div class="wrap why-grid">
+    <div class="why-copy">
+      <p class="label"><i>✦</i>{{why_label}}</p>
+      <h2 class="why-title" data-split>{{why_title}}</h2>
+      <p class="why-text" data-reveal>{{why_text}}</p>
+    </div>
+    <figure class="blueprint" data-reveal aria-hidden="true">
+      <svg viewBox="0 0 560 400">
+        <g class="bp-dim">
+          <path d="M148 56h224M148 48v16M372 48v16"/>
+          <path d="M486 82v60M480 82h12M480 142h12"/>
+          <path d="M486 148v172M480 148h12M480 320h12"/>
+          <path d="M120 142A60 60 0 0 0 109.6 108.2M120 148A60 60 0 0 1 105.5 187.1M56 122h40M56 170h40"/>
+          <path class="bp-axis" d="M260 30v318M20 145h460"/>
+        </g>
+        <g class="bp-cut">
+          <path pathLength="1" d="M148 82H372L460 142V148L260 320L60 148V142Z"/>
+          <path pathLength="1" d="M60 142H460M60 148H460"/>
+          <path pathLength="1" d="M372 82L406 113L339 82L320.5 113L260 82L199.5 113L181 82L114 113L148 82"/>
+          <path pathLength="1" d="M460 142L406 113L401 142L320.5 113L260 142L199.5 113L119 142L114 113L60 142"/>
+          <path pathLength="1" d="M406 113L444.8 142M320.5 113L336.5 142M199.5 113L183.5 142M114 113L75 142"/>
+          <path pathLength="1" d="M460 148L326.5 258L401 148L287.6 258L260 148L232.4 258L119 148L193.5 258L60 148"/>
+          <path pathLength="1" d="M444.8 148L326.5 258M336.5 148L287.6 258M183.5 148L232.4 258M75 148L193.5 258"/>
+          <path pathLength="1" d="M326.5 258L260 320L287.6 258M232.4 258L260 320L193.5 258"/>
+        </g>
+        <g class="bp-text">
+          <text x="260" y="40" text-anchor="middle">{{bp_table}}</text>
+          <text x="498" y="117">{{bp_crown}}</text>
+          <text x="498" y="239">{{bp_pavilion}}</text>
+          <text x="48" y="126" text-anchor="end">{{bp_ca}}</text>
+          <text x="48" y="174" text-anchor="end">{{bp_pa}}</text>
+          <text x="260" y="378" text-anchor="middle" class="bp-faint">{{bp_caption}}</text>
+        </g>
+      </svg>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee dark" data-dark aria-hidden="true">
+  <div class="mq-row" data-dir="-1"><div class="mq-track">{{marquee_items}}{{marquee_items}}</div></div>
+  <div class="mq-row mq-italic" data-dir="1"><div class="mq-track">{{marquee_items}}{{marquee_items}}</div></div>
+</div>
+
 <!-- ============ SERVICES (horizontal) ============ -->
-<section class="services" id="services" data-scene="2">
+<section class="services sheet" id="services">
   <div class="sticky">
     <div class="wrap services-head">
       <div>
@@ -155,13 +198,13 @@
       <div class="sp">
         <span class="sp-count"><b>01</b> / 07</span>
         <span class="sp-bar"><i></i></span>
-        <span class="sp-hint">{{services_hint}} <svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <span class="sp-hint">{{services_hint}} <svg class="arr" aria-hidden="true"><use href="#arr"/></svg></span>
       </div>
     </div>
     <div class="track-wrap">
       <div class="track">
 
-        <article class="card" style="--h:#7c5cff">
+        <article class="card">
           <div class="card-top"><span class="card-num">01</span><span class="card-tag">WebGL · Three.js</span></div>
           <div class="card-vis vis-cube" aria-hidden="true">
             <div class="floor"></div>
@@ -171,7 +214,7 @@
           <p>{{s1_text}}</p>
         </article>
 
-        <article class="card" style="--h:#ff5ca8">
+        <article class="card">
           <div class="card-top"><span class="card-num">02</span><span class="card-tag">Blender · Cycles · Sound</span></div>
           <div class="card-vis vis-film" aria-hidden="true">
             <div class="film-screen"><span class="rec"><b></b>REC</span><span class="tc" data-timecode>00:00:00:00</span><span class="play"></span></div>
@@ -181,7 +224,7 @@
           <p>{{s2_text}}</p>
         </article>
 
-        <article class="card" style="--h:#39d5ff">
+        <article class="card">
           <div class="card-top"><span class="card-num">03</span><span class="card-tag">Motion · Interaction</span></div>
           <div class="card-vis vis-scroll" aria-hidden="true">
             <div class="phone">
@@ -196,10 +239,9 @@
           <p>{{s3_text}}</p>
         </article>
 
-        <article class="card" style="--h:#ffb03a">
+        <article class="card">
           <div class="card-top"><span class="card-num">04</span><span class="card-tag">LLMs · TTS · Automation</span></div>
           <div class="card-vis vis-ai" aria-hidden="true">
-            <div class="blob"></div>
             <div class="ai-slot"><div class="ai-words"><span>Hallo</span><span>Hello</span><span>Bonjour</span><span>Hola</span><span>Ciao</span><span>Hallo</span></div></div>
             <div class="ai-prompt">&gt; generate --lang=all<b></b></div>
           </div>
@@ -207,7 +249,7 @@
           <p>{{s4_text}}</p>
         </article>
 
-        <article class="card" style="--h:#ff5ca8">
+        <article class="card">
           <div class="card-top"><span class="card-num">05</span><span class="card-tag">Film · Web · Live</span></div>
           <div class="card-vis vis-event" aria-hidden="true">
             <div class="radar"><i></i><i></i><i></i><b></b></div>
@@ -217,7 +259,7 @@
           <p>{{s5_text}}</p>
         </article>
 
-        <article class="card" style="--h:#39d5ff">
+        <article class="card">
           <div class="card-top"><span class="card-num">06</span><span class="card-tag">i18n · Build-Pipelines</span></div>
           <div class="card-vis vis-globe" aria-hidden="true">
             <div class="globe">
@@ -233,7 +275,7 @@
         <article class="card card-end">
           <div class="card-top"><span class="card-num">07</span><span class="card-tag">∞</span></div>
           <p class="card-end-text">{{s7_title}}</p>
-          <a class="btn btn-primary" href="#contact" data-magnetic><span>{{nav_cta}}</span><svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-light" href="#contact"><span>{{nav_cta}}</span><svg class="arr" aria-hidden="true"><use href="#arr"/></svg></a>
         </article>
 
       </div>
@@ -250,7 +292,7 @@
 </section>
 
 <!-- ============ TEAM ============ -->
-<section class="team" id="team">
+<section class="team dark" id="team" data-dark>
   <div class="wrap team-grid">
     <div class="team-copy">
       <p class="label"><i>03</i>{{team_label}}</p>
@@ -282,34 +324,36 @@
   </div>
 </section>
 
-<!-- ============ PROCESS (stacking cards) ============ -->
-<section class="process" id="process" data-scene="3">
+<!-- ============ PROCESS: rough stone → polished (white → black) ============ -->
+<section class="process sheet" id="process">
   <div class="wrap">
-    <p class="label"><i>04</i>{{process_label}}</p>
-    <h2 class="h2" data-split>{{process_title}}</h2>
+    <div class="process-head">
+      <p class="label"><i>04</i>{{process_label}}</p>
+      <h2 class="h2" data-split>{{process_title}}</h2>
+    </div>
     <div class="stack">
-      <article class="pcard" style="--i:0;--h:#39d5ff">
+      <article class="pcard t0" style="--i:0">
         <span class="pcard-num">01</span>
         <div class="pcard-body"><h3>{{p1_title}}</h3><p>{{p1_text}}</p></div>
-        <svg class="pcard-vis" viewBox="0 0 200 200" aria-hidden="true"><circle class="spin dash" cx="100" cy="100" r="80"/><circle cx="100" cy="100" r="54"/><circle class="pulse" cx="100" cy="100" r="28"/><circle class="fill" cx="100" cy="100" r="5"/><path d="M100 6v30M100 164v30M6 100h30M164 100h30"/></svg>
+        <svg class="pcard-vis" viewBox="0 0 200 200" aria-hidden="true"><path class="rough" d="M58 70l38-30 52 14 22 46-18 50-50 14-40-24-14-38z"/><path class="faint" d="M96 40l-10 54 62-40M86 94l-58 6M86 94l14 70M86 94l84 6"/><circle class="pulse" cx="86" cy="94" r="5"/></svg>
         <div class="pcard-shade"></div>
       </article>
-      <article class="pcard" style="--i:1;--h:#7c5cff">
+      <article class="pcard t1" style="--i:1">
         <span class="pcard-num">02</span>
         <div class="pcard-body"><h3>{{p2_title}}</h3><p>{{p2_text}}</p></div>
         <svg class="pcard-vis" viewBox="0 0 200 200" aria-hidden="true"><rect x="20" y="36" width="160" height="120" rx="12"/><path d="M20 60h160"/><circle class="fill" cx="34" cy="48" r="3"/><circle class="fill" cx="46" cy="48" r="3"/><rect class="pulse" x="36" y="76" width="70" height="40" rx="6"/><path d="M120 80h44M120 94h34M120 108h40M36 134h128"/><path class="fill cur" d="M128 118l26 10-11 4 8 12-6 4-8-12-8 8z"/></svg>
         <div class="pcard-shade"></div>
       </article>
-      <article class="pcard" style="--i:2;--h:#ff5ca8">
+      <article class="pcard t2" style="--i:2">
         <span class="pcard-num">03</span>
         <div class="pcard-body"><h3>{{p3_title}}</h3><p>{{p3_text}}</p></div>
         <svg class="pcard-vis" viewBox="0 0 200 200" aria-hidden="true"><path class="lay l1" d="M100 40l70 32-70 32-70-32z"/><path class="lay l2" d="M30 100l70 32 70-32"/><path class="lay l3" d="M30 128l70 32 70-32"/></svg>
         <div class="pcard-shade"></div>
       </article>
-      <article class="pcard" style="--i:3;--h:#ffb03a">
+      <article class="pcard t3" style="--i:3">
         <span class="pcard-num">04</span>
         <div class="pcard-body"><h3>{{p4_title}}</h3><p>{{p4_text}}</p></div>
-        <svg class="pcard-vis" viewBox="0 0 200 200" aria-hidden="true"><path d="M24 172h156M24 172V28"/><path class="draw" d="M30 152l36-30 30 18 40-50 38-48"/><circle class="fill pulse" cx="174" cy="42" r="6"/></svg>
+        <svg class="pcard-vis" viewBox="0 0 200 200" aria-hidden="true"><path d="M62 62h76l26 28-64 74-64-74z"/><path class="faint" d="M36 90h128M62 62l18 28 20-28 20 28 18-28M80 90l20 74 20-74"/><path class="spark" d="M150 34l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg>
         <div class="pcard-shade"></div>
       </article>
     </div>
@@ -317,17 +361,19 @@
 </section>
 
 <!-- ============ CONTACT ============ -->
-<section class="contact" id="contact" data-scene="4">
-  <div class="wrap contact-inner">
-    <p class="label"><i>05</i>{{contact_label}}</p>
-    <h2 class="contact-title" data-split>{{contact_title}}</h2>
-    <p class="lead" data-reveal>{{contact_text}}</p>
-    <div class="contact-cta" data-reveal style="--d:120">
-      <a class="btn btn-primary btn-xl" href="{{contact_href}}"{{contact_target}} data-magnetic><span>{{contact_btn}}</span><svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <div class="badge" aria-hidden="true">
-        <svg viewBox="0 0 200 200"><defs><path id="circ" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0"/></defs><text textLength="498" lengthAdjust="spacing"><textPath href="#circ">{{contact_badge}}</textPath></text></svg>
-        <span class="badge-core">✦</span>
+<section class="contact" id="contact">
+  <div class="wrap contact-grid">
+    <div class="contact-copy">
+      <p class="label"><i>05</i>{{contact_label}}</p>
+      <h2 class="contact-title" data-split>{{contact_title}}</h2>
+      <p class="lead" data-reveal>{{contact_text}}</p>
+      <div class="contact-cta" data-reveal style="--d:120">
+        <a class="btn btn-solid btn-xl" href="{{contact_href}}"{{contact_target}}><span>{{contact_btn}}</span><svg class="arr" aria-hidden="true"><use href="#arr"/></svg></a>
       </div>
+    </div>
+    <div class="contact-gem" id="contact-slot">
+      <canvas class="gem-canvas" id="gem-contact" aria-hidden="true"></canvas>
+      <svg class="ring" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="ringpath" d="M100,100 m-88,0 a88,88 0 1,1 176,0 a88,88 0 1,1 -176,0"/></defs><text textLength="548" lengthAdjust="spacing"><textPath href="#ringpath">{{contact_badge}}{{contact_badge}}</textPath></text></svg>
     </div>
   </div>
 </section>
@@ -335,10 +381,10 @@
 </main>
 
 <!-- ============ FOOTER ============ -->
-<footer class="footer">
+<footer class="footer dark" data-dark>
   <div class="wrap footer-grid">
     <div class="footer-brand">
-      <a class="brand" href="#top" aria-label="mzollercreations"><span class="brand-mark"></span><span class="brand-word">mzoller<b>creations</b></span></a>
+      <a class="brand" href="#top" aria-label="{{brand}}"><svg class="mark" aria-hidden="true"><use href="#mark"/></svg><span class="wm">{{wordmark}}</span></a>
       <p class="footer-tag">{{footer_tagline}}</p>
     </div>
     <div>
@@ -365,14 +411,14 @@
       </ul>
     </div>
   </div>
-  <div class="footer-word" aria-hidden="true"><span>mzollercreations</span></div>
+  <div class="footer-word" aria-hidden="true"><span>Sapphire <em>Creators</em></span></div>
   <div class="wrap footer-bottom">
-    <span>© 2026 mzollercreations. {{footer_rights}}</span>
+    <span>© 2026 {{brand}}. {{footer_rights}}</span>
     <a href="#top">{{footer_top}} ↑</a>
   </div>
 </footer>
 
-<script src="{{base}}assets/js/field.js?v={{v}}" defer></script>
+<script src="{{base}}assets/js/gem.js?v={{v}}" defer></script>
 <script src="{{base}}assets/js/main.js?v={{v}}" defer></script>
 </body>
 </html>

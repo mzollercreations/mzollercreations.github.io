@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Build the mzollercreations site into docs/ (GitHub Pages).
+"""Build the Sapphire Creators site into docs/ (GitHub Pages).
 
     python3 tools/build.py
 
 src/index.html is the template, src/i18n/<lang>.json hold the texts,
-site.json the URLs and the optional contact e-mail. German is served at
+site.json the brand name, URLs and the optional contact e-mail. German is served at
 the root, English under /en/.
 """
 import hashlib
@@ -47,6 +47,22 @@ def wave_bars(n=36):
     )
 
 
+def wordmark(name, letters=False):
+    """'Sapphire Creators' → 'Sapphire <em>Creators</em>' (second word in the serif italic)."""
+    first, _, rest = name.partition(" ")
+    if not letters:
+        return f"{html.escape(first)} <em>{html.escape(rest)}</em>"
+    i = 0
+    out = []
+    for word, tag in ((first, "b"), (rest, "em")):
+        chars = []
+        for c in word:
+            chars.append(f'<span style="--i:{i}">{html.escape(c)}</span>')
+            i += 1
+        out.append(f"<{tag}>{''.join(chars)}</{tag}>")
+    return " ".join(out)
+
+
 def version():
     h = hashlib.md5()
     for p in sorted((ROOT / "assets").rglob("*")):
@@ -75,8 +91,10 @@ def render(template, lang, site, v):
         href_en="en/" if root_lang else "./",
         cur_de=' aria-current="page"' if lang == "de" else "",
         cur_en=' aria-current="page"' if lang == "en" else "",
-        marquee_items="".join(f'<span class="mq-item">{html.escape(w)}</span>' for w in t["marquee"]),
-        loader_letters="".join(f'<span style="--i:{i}">{c}</span>' for i, c in enumerate("mzollercreations")),
+        brand=html.escape(site["name"]),
+        wordmark=wordmark(site["name"]),
+        marquee_items="".join(f'<span class="mq-item">{html.escape(w)}</span><i class="mq-gem"></i>' for w in t["marquee"]),
+        loader_letters=wordmark(site["name"], letters=True),
         code_html=highlight(t["code"]),
         wave_bars=wave_bars(),
         contact_href=(f"mailto:{email}" if email else site["github"]),
