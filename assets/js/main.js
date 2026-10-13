@@ -58,7 +58,7 @@
       io.unobserve(e.target);
     }
   }, { rootMargin: '0px 0px -7% 0px', threshold: 0.12 });
-  $$('[data-reveal], [data-split]').forEach((el) => io.observe(el));
+  $$('[data-reveal], [data-split], [data-draw]').forEach((el) => io.observe(el));
 
   /* ---------- counters ---------- */
   const countIO = new IntersectionObserver((entries) => {
@@ -497,8 +497,62 @@
     };
   })();
 
+  /* sticky steps: the two sides of the stone (4), the AI machine (6) */
+  const steppers = $$('[data-steps]').map((sec) => {
+    const stage = $('.sticky', sec), n = +sec.dataset.steps || 1;
+    const items = $$('[data-step]', sec);
+    const count = $('.pav-count b', sec), pm = $('.pm', sec);
+    let top = 0, span = 1, cur = -1, flashT = 0;
+    const set = (s, quiet) => {
+      cur = s;
+      sec.dataset.s = s;
+      for (const el of items) el.classList.toggle('on', +el.dataset.step === s);
+      if (count) count.textContent = String(s + 1).padStart(2, '0');
+      if (pm && !quiet && !reduce) {
+        pm.classList.remove('flash');
+        void pm.offsetWidth;                 // restart the animation
+        pm.classList.add('flash');
+        clearTimeout(flashT);
+        flashT = setTimeout(() => pm.classList.remove('flash'), 950);
+      }
+    };
+    set(0, true);
+    return {
+      measure() { top = absTop(sec); span = Math.max(1, sec.offsetHeight - stage.offsetHeight); },
+      update() {
+        if (y + vh < top || y > top + span + vh) return;
+        const s = Math.min(n - 1, Math.floor(clamp((sy - top) / span) * n));
+        if (s !== cur) set(s);
+      },
+    };
+  });
+
+  /* timelines + step rows: a line fills as you scroll, the points light up */
+  const progress = $$('[data-progress]').map((el) => {
+    const track = $('.tl-list', el) || el;
+    const items = $$('.tl-item, .step', el);
+    let top = 0, h = 1, fr = [], last = -1;
+    return {
+      measure() {
+        top = absTop(track); h = Math.max(1, track.offsetHeight);
+        const vert = items.length > 1 && items[1].offsetTop > items[0].offsetTop + 8;
+        const W = Math.max(1, track.scrollWidth);
+        fr = items.map((it) => (vert ? it.offsetTop / h : it.offsetLeft / W));
+        last = -1;
+      },
+      update() {
+        if (y + vh < top - 60 || y > top + h + vh) return;
+        const p = reduce ? 1 : clamp((sy + vh * 0.62 - top) / Math.max(h, vh * 0.35));
+        if (Math.abs(p - last) < 0.002) return;
+        last = p;
+        track.style.setProperty('--p', p.toFixed(4));
+        for (let i = 0; i < items.length; i++) items[i].classList.toggle('on', p >= fr[i] - 0.002);
+      },
+    };
+  });
+
   /* ================= LOOP ================= */
-  const mods = [hero, manifest, marquee, services, zoom, team, stack, ...gemBoxes, grow, depth, footer, chrome].filter(Boolean);
+  const mods = [hero, manifest, marquee, services, zoom, team, stack, ...steppers, ...progress, ...gemBoxes, grow, depth, footer, chrome].filter(Boolean);
 
   function measure() {
     vw = innerWidth; vh = innerHeight;
@@ -590,6 +644,76 @@
       }, 450);
     }, { threshold: 0.6 });
     hint.observe(box);
+  });
+
+  /* ---------- drawing sheets: the page counter runs while the plan draws itself ---------- */
+  $$('[data-sheetcount]').forEach((el) => {
+    const box = el.closest('.viewer, .ai-hero-vis') || el;
+    const to = +el.dataset.to || 27;
+    const pad = (n) => String(n).padStart(2, '0');
+    const run = () => {
+      if (reduce) { el.textContent = `${pad(to)} / ${pad(to)}`; box.classList.add('done'); return; }
+      const t0 = performance.now(), dur = 2900;
+      const tick = (now) => {
+        const t = clamp((now - t0) / dur);
+        el.textContent = `${pad(Math.max(1, Math.round(1 + (to - 1) * t * t)))} / ${pad(to)}`;
+        if (t < 1) requestAnimationFrame(tick);
+        else box.classList.add('done');
+      };
+      requestAnimationFrame(tick);
+    };
+    const o = new IntersectionObserver((es) => {
+      if (!es[0].isIntersecting || !root.classList.contains('ready')) return;
+      o.disconnect();
+      run();
+    }, { threshold: 0.3 });
+    // wait for the intro (loader/fonts) so the counter and the drawing start together
+    const start = () => (root.classList.contains('ready') ? o.observe(box) : setTimeout(start, 200));
+    start();
+  });
+
+  /* ---------- time calculator (AI page): hours × people × 44 weeks, all in the browser ---------- */
+  $$('[data-calc]').forEach((box) => {
+    const chips = $$('.chip', box);
+    const hIn = $('[data-calc-in="h"]', box), pIn = $('[data-calc-in="p"]', box);
+    const hOut = $('[data-calc-out="h"]', box), pOut = $('[data-calc-out="p"]', box);
+    const totalEl = $('[data-calc-total]', box), fteEl = $('[data-calc-fte]', box);
+    const builds = $$('.calc-build li', box), empty = $('.calc-empty', box);
+    const lang = root.lang || 'de';
+    const f0 = new Intl.NumberFormat(lang, { maximumFractionDigits: 0 });
+    const f1 = new Intl.NumberFormat(lang, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    let shown = -1, target = 0, raf = 0;
+    const fill = (inp) => inp.style.setProperty('--fill', (((inp.value - inp.min) / (inp.max - inp.min)) * 100).toFixed(1) + '%');
+    const roll = () => {
+      cancelAnimationFrame(raf);
+      if (shown < 0 || reduce) { shown = target; totalEl.textContent = f0.format(target); return; }
+      const from = shown, t0 = performance.now();
+      const tick = (now) => {
+        const t = clamp((now - t0) / 550), e = 1 - Math.pow(1 - t, 3);
+        shown = from + (target - from) * e;
+        totalEl.textContent = f0.format(Math.round(shown));
+        if (t < 1) raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
+    };
+    const update = () => {
+      const h = +hIn.value, p = +pIn.value;
+      hOut.textContent = h;
+      pOut.textContent = p;
+      fill(hIn); fill(pIn);
+      target = h * p * 44;
+      fteEl.textContent = f1.format(target / 1760);
+      roll();
+      const on = new Set(chips.filter((c) => c.getAttribute('aria-pressed') === 'true').map((c) => c.dataset.task));
+      builds.forEach((li) => { li.hidden = !on.has(li.dataset.task); });
+      if (empty) empty.hidden = on.size > 0;
+    };
+    chips.forEach((c) => c.addEventListener('click', () => {
+      c.setAttribute('aria-pressed', String(c.getAttribute('aria-pressed') !== 'true'));
+      update();
+    }));
+    [hIn, pIn].forEach((inp) => inp.addEventListener('input', update));
+    update();
   });
 
   /* ---------- mobile menu ---------- */

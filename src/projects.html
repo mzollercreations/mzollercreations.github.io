@@ -25,8 +25,18 @@
         </a>
       </li>
       <li>
-        <a href="#sapphire">
+        <a href="#stapel">
           <span class="pi-num">02</span>
+          <span class="pi-name">{{c2s_title}}</span>
+          <span class="pi-tags">{{pi_stapel_tags}}</span>
+          <span class="pi-year">2026</span>
+          <span class="pi-thumb pi-thumb-dwg" aria-hidden="true">{{dwg}}</span>
+          <svg class="arr" aria-hidden="true"><use href="#arr-down"/></svg>
+        </a>
+      </li>
+      <li>
+        <a href="#sapphire">
+          <span class="pi-num">03</span>
           <span class="pi-name">Sapphire <em>Creators</em></span>
           <span class="pi-tags">{{pi2_tags}}</span>
           <span class="pi-year">2026</span>
@@ -35,7 +45,7 @@
       </li>
       <li>
         <a href="#next">
-          <span class="pi-num">03</span>
+          <span class="pi-num">04</span>
           <span class="pi-name">{{pi3_name}}</span>
           <span class="pi-tags">{{pi3_tags}}</span>
           <span class="pi-year">{{pi3_year}}</span>
@@ -186,7 +196,179 @@
   </div>
 </section>
 
-<!-- ============ 02 + 03 ============ -->
+<!-- ============ CASE 02: Projekt Stapel (anonymised – confidential client) ============ -->
+<section class="sheet case case-light" id="stapel">
+  <div class="wrap case-head">
+    <div>
+      <p class="label"><i>02</i>{{c2s_kicker}}</p>
+      <h2 class="case-title" data-split>{{c2s_title}}</h2>
+    </div>
+    <div class="case-intro">
+      <p class="lead" data-reveal>{{c2s_lead}}</p>
+      <a class="btn btn-solid" href="{{href_ai}}" data-reveal style="--d:120"><span>{{c2s_btn}}</span><svg class="arr" aria-hidden="true"><use href="#arr"/></svg></a>
+    </div>
+  </div>
+  <div class="wrap">
+    <dl class="case-meta" data-reveal>
+      <div><dt>{{c_client}}</dt><dd>{{c2s_client}}</dd></div>
+      <div><dt>{{c_scope}}</dt><dd>{{c2s_scope}}</dd></div>
+      <div><dt>{{c_year}}</dt><dd>2026</dd></div>
+      <div><dt>{{c_status}}</dt><dd><span class="live-dot" aria-hidden="true"></span>{{c2s_status}}</dd></div>
+    </dl>
+    <p class="conf-note conf-wide" data-reveal><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 11V8a5 5 0 0 1 10 0v3M5.5 11h13v9.5h-13z"/></svg>{{conf_long}}</p>
+  </div>
+
+  <div class="wrap case-stage">
+    <div class="viewer viewer-xl" data-grow>
+      <span class="viewer-bar" aria-hidden="true"><i></i><i></i><i></i><span class="viewer-file">{{viewer_file}}</span><span class="viewer-page" data-sheetcount data-to="27">01 / 27</span></span>
+      <span class="viewer-stage" data-draw>{{dwg}}</span>
+    </div>
+    <p class="case-caption">{{c2s_caption}}</p>
+  </div>
+
+  <!-- what went in → what came out -->
+  <div class="wrap io">
+    <div class="pj-sec-head">
+      <p class="label"><i>✦</i>{{io_label}}</p>
+      <h2 class="h2" data-split>{{io_title}}</h2>
+    </div>
+    <div class="io-grid" data-reveal>
+      <div class="io-col">
+        <h3 class="io-h">{{io_in}}</h3>
+        <ul class="io-list">
+          <li><i>STEP</i>{{io_i1}}</li>
+          <li><i>PDF</i>{{io_i2}}</li>
+          <li><i>PDF</i>{{io_i3}}</li>
+          <li><i>MP4</i>{{io_i4}}</li>
+        </ul>
+      </div>
+      <div class="io-core" aria-hidden="true">
+        <span class="io-wire"></span>
+        <span class="io-node"><svg class="mark"><use href="#mark"/></svg></span>
+        <span class="io-core-l">{{io_core}}</span>
+      </div>
+      <div class="io-col">
+        <h3 class="io-h">{{io_out}}</h3>
+        <ul class="io-list io-out">
+          <li><i>01</i>{{io_o1}}</li>
+          <li><i>02</i>{{io_o2}}</li>
+          <li><i>03</i>{{io_o3}}</li>
+          <li><i>04</i>{{io_o4}}</li>
+          <li><i>05</i>{{io_o5}}</li>
+          <li><i>06</i>{{io_o6}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- one source of truth -->
+  <div class="wrap sot">
+    <div class="sot-copy">
+      <p class="label"><i>✦</i>{{sot_label}}</p>
+      <h2 class="h2" data-split>{{sot_title}}</h2>
+      <p class="lead" data-reveal>{{sot_text}}</p>
+    </div>
+    <figure class="sot-vis" data-reveal aria-hidden="true">
+      <svg viewBox="0 0 440 400">
+        <g class="sot-spokes">
+          <path d="M220 200L220 52"/><path d="M220 200L361 108"/><path d="M220 200L361 292"/>
+          <path d="M220 200L220 348"/><path d="M220 200L79 292"/><path d="M220 200L79 108"/>
+        </g>
+        <g class="sot-pulses">
+          <circle r="3.2"><animateMotion dur="2.6s" repeatCount="indefinite" path="M220 200L220 52"/></circle>
+          <circle r="3.2"><animateMotion dur="2.6s" begin=".43s" repeatCount="indefinite" path="M220 200L361 108"/></circle>
+          <circle r="3.2"><animateMotion dur="2.6s" begin=".86s" repeatCount="indefinite" path="M220 200L361 292"/></circle>
+          <circle r="3.2"><animateMotion dur="2.6s" begin="1.3s" repeatCount="indefinite" path="M220 200L220 348"/></circle>
+          <circle r="3.2"><animateMotion dur="2.6s" begin="1.73s" repeatCount="indefinite" path="M220 200L79 292"/></circle>
+          <circle r="3.2"><animateMotion dur="2.6s" begin="2.16s" repeatCount="indefinite" path="M220 200L79 108"/></circle>
+        </g>
+        <g class="sot-nodes">
+          <circle class="sot-hub" cx="220" cy="200" r="54"/>
+          <text class="sot-hub-t" x="220" y="196" text-anchor="middle">{{sot_hub}}</text>
+          <text class="sot-hub-s" x="220" y="214" text-anchor="middle">{{sot_hub_s}}</text>
+          <g><rect x="160" y="30" width="120" height="44" rx="22"/><text x="220" y="57" text-anchor="middle">{{sot_n1}}</text></g>
+          <g><rect x="301" y="86" width="120" height="44" rx="22"/><text x="361" y="113" text-anchor="middle">{{sot_n2}}</text></g>
+          <g><rect x="301" y="270" width="120" height="44" rx="22"/><text x="361" y="297" text-anchor="middle">{{sot_n3}}</text></g>
+          <g><rect x="160" y="326" width="120" height="44" rx="22"/><text x="220" y="353" text-anchor="middle">{{sot_n4}}</text></g>
+          <g><rect x="19" y="270" width="120" height="44" rx="22"/><text x="79" y="297" text-anchor="middle">{{sot_n5}}</text></g>
+          <g><rect x="19" y="86" width="120" height="44" rx="22"/><text x="79" y="113" text-anchor="middle">{{sot_n6}}</text></g>
+        </g>
+      </svg>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ CASE 02, part two: tested, audited, honest ============ -->
+<section class="sheet dark case-proof" data-dark>
+  <div class="wrap">
+    {{> timeline}}
+  </div>
+
+  <div class="wrap twin">
+    <div class="twin-copy">
+      <p class="label"><i>✦</i>{{tw_label}}</p>
+      <h2 class="h2" data-split>{{tw_title}}</h2>
+      <p class="lead" data-reveal>{{tw_text}}</p>
+    </div>
+    <div class="term" data-reveal>
+      <div class="code-bar"><i></i><i></i><i></i><span>{{tw_file}}</span></div>
+      <ol class="term-body">
+        <li class="t-cmd" style="--i:0">$ {{tw_cmd}}</li>
+        <li style="--i:1"><b>PASS</b>{{tw1}}</li>
+        <li style="--i:2"><b>PASS</b>{{tw2}}</li>
+        <li style="--i:3"><b>PASS</b>{{tw3}}</li>
+        <li style="--i:4"><b>PASS</b>{{tw4}}</li>
+        <li style="--i:5"><b>PASS</b>{{tw5}}</li>
+        <li style="--i:6"><b>PASS</b>{{tw6}}</li>
+        <li style="--i:7"><b>PASS</b>{{tw7}}</li>
+        <li style="--i:8"><b>PASS</b>{{tw8}}</li>
+        <li style="--i:9"><b>PASS</b>{{tw9}}</li>
+        <li style="--i:10"><b>PASS</b>{{tw10}}</li>
+        <li style="--i:11"><b>PASS</b>{{tw11}}</li>
+        <li style="--i:12"><b>PASS</b>{{tw12}}</li>
+        <li style="--i:13"><b>PASS</b>{{tw13}}</li>
+        <li style="--i:14" class="t-sum">{{tw_sum}}</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="wrap audit">
+    <div class="audit-copy">
+      <p class="label"><i>✦</i>{{au_label}}</p>
+      <h2 class="h2" data-split>{{au_title}}</h2>
+      <p class="lead" data-reveal>{{au_text}}</p>
+    </div>
+    <ul class="audit-grid">
+      <li class="au" data-reveal><span class="au-from">40</span><span class="au-arr" aria-hidden="true">→</span><span class="au-num" data-count-from="40" data-count-to="0">0</span><p>{{au1}}</p></li>
+      <li class="au" data-reveal style="--d:90"><span class="au-from">10</span><span class="au-arr" aria-hidden="true">→</span><span class="au-num" data-count-from="10" data-count-to="0">0</span><p>{{au2}}</p></li>
+      <li class="au au-eq" data-reveal style="--d:180"><span class="au-from">84</span><span class="au-arr" aria-hidden="true">=</span><span class="au-num" data-count-from="0" data-count-to="84">84</span><p>{{au3}}</p></li>
+      <li class="au au-eq" data-reveal style="--d:270"><span class="au-from">{{au4_from}}</span><span class="au-arr" aria-hidden="true">=</span><span class="au-num au-word">{{au4_to}}</span><p>{{au4}}</p></li>
+    </ul>
+  </div>
+
+  <div class="wrap open">
+    <div class="open-copy">
+      <p class="label"><i>✦</i>{{op_label}}</p>
+      <h2 class="h2" data-split>{{op_title}}</h2>
+      <p class="lead" data-reveal>{{op_text}}</p>
+    </div>
+    <ol class="open-list" data-reveal>
+      <li><span>01</span>{{op1}}</li>
+      <li><span>02</span>{{op2}}</li>
+      <li><span>03</span>{{op3}}</li>
+      <li><span>04</span>{{op4}}</li>
+      <li><span>05</span>{{op5}}</li>
+      <li><span>06</span>{{op6}}</li>
+      <li><span>07</span>{{op7}}</li>
+    </ol>
+  </div>
+
+  <div class="wrap">
+    {{> stapel_stats}}
+  </div>
+</section>
+
+<!-- ============ 03 + 04 ============ -->
 <section class="sheet pj-more">
   <div class="wrap more-grid">
     <article class="more-card more-self" id="sapphire">
@@ -195,7 +377,7 @@
         <span class="drag-hint">{{gem_drag}}</span>
       </div>
       <div class="more-body">
-        <p class="label"><i>02</i>{{c2_kicker}}</p>
+        <p class="label"><i>03</i>{{c2_kicker}}</p>
         <h2 class="more-title">Sapphire <em>Creators</em></h2>
         <p class="more-text">{{c2_text}}</p>
         <ul class="more-facts">
@@ -208,7 +390,7 @@
     </article>
     <article class="more-card more-next dark" id="next">
       <div class="more-next-top">
-        <p class="label"><i>03</i>{{c3_kicker}}</p>
+        <p class="label"><i>04</i>{{c3_kicker}}</p>
         <span class="more-q" aria-hidden="true">?</span>
       </div>
       <div>

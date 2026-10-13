@@ -12,11 +12,10 @@
     <svg class="mark" aria-hidden="true"><use href="#mark"/></svg><span class="wm">{{wordmark}}</span>
   </a>
   <nav class="nav-links" aria-label="{{nav_menu}}">
-    <a href="{{home}}#manifest">{{nav_manifest}}</a>
     <a href="{{home}}#services">{{nav_services}}</a>
+    <a href="{{href_ai}}"{{cur_ai}}>{{nav_ai}}</a>
     <a href="{{href_projects}}"{{cur_projects}}>{{nav_projects}}</a>
     <a href="{{home}}#team">{{nav_team}}</a>
-    <a href="{{home}}#process">{{nav_process}}</a>
     <a href="{{home}}#contact">{{nav_contact}}</a>
   </nav>
   <div class="nav-right">
@@ -33,8 +32,8 @@
 
 <div class="menu" id="menu" hidden>
   <nav class="menu-links" aria-label="{{nav_menu}}">
-    <a href="{{home}}#manifest"><i>01</i>{{nav_manifest}}</a>
-    <a href="{{home}}#services"><i>02</i>{{nav_services}}</a>
+    <a href="{{home}}#services"><i>01</i>{{nav_services}}</a>
+    <a href="{{href_ai}}"{{cur_ai}}><i>02</i>{{nav_ai}}</a>
     <a href="{{href_projects}}"{{cur_projects}}><i>03</i>{{nav_projects}}</a>
     <a href="{{home}}#team"><i>04</i>{{nav_team}}</a>
     <a href="{{home}}#process"><i>05</i>{{nav_process}}</a>

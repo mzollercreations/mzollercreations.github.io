@@ -1,0 +1,90 @@
+<div class="pm" aria-hidden="true">
+  <div class="pm-bar"><i></i><i></i><i></i><span class="pm-name">{{pm_name}}</span><span class="pm-live"><b></b>{{pm_live}}</span></div>
+  <div class="pm-flow">
+    <div class="pm-col pm-in">
+      <span class="pm-h">{{pm_in}}</span>
+      <div class="pm-layers">
+        <div class="pm-layer on" data-step="0"><span class="fchip"><i>STEP</i>{{pm1_i1}}</span><span class="fchip"><i>PDF</i>{{pm1_i2}}</span><span class="fchip"><i>MP4</i>{{pm1_i3}}</span></div>
+        <div class="pm-layer" data-step="1"><span class="fchip"><i>EML</i>{{pm2_i1}}</span><span class="fchip"><i>XLSX</i>{{pm2_i2}}</span><span class="fchip"><i>DOCX</i>{{pm2_i3}}</span></div>
+        <div class="pm-layer" data-step="2"><span class="fchip"><i>PDF</i>{{pm3_i1}}</span><span class="fchip"><i>PDF</i>{{pm3_i2}}</span><span class="fchip"><i>ZIP</i>{{pm3_i3}}</span></div>
+        <div class="pm-layer" data-step="3"><span class="fchip"><i>CSV</i>{{pm4_i1}}</span><span class="fchip"><i>XLSX</i>{{pm4_i2}}</span><span class="fchip"><i>LOG</i>{{pm4_i3}}</span></div>
+        <div class="pm-layer" data-step="4"><span class="fchip"><i>HTML</i>{{pm5_i1}}</span><span class="fchip"><i>PDF</i>{{pm5_i2}}</span><span class="fchip"><i>TXT</i>{{pm5_i3}}</span></div>
+        <div class="pm-layer" data-step="5"><span class="fchip"><i>PDF</i>{{pm6_i1}}</span><span class="fchip"><i>ST</i>{{pm6_i2}}</span><span class="fchip"><i>XLSX</i>{{pm6_i3}}</span></div>
+      </div>
+    </div>
+
+    <div class="pm-core">
+      <span class="pm-wire pm-wire-in"></span><span class="pm-wire pm-wire-out"></span>
+      <span class="pm-orbit"></span><span class="pm-ring"></span>
+      <svg class="pm-gem"><use href="#mark"/></svg>
+      <span class="pm-core-label">KI</span>
+    </div>
+
+    <div class="pm-col pm-out">
+      <span class="pm-h">{{pm_out}}</span>
+      <div class="pm-layers">
+        <!-- 01 technical documents: a schematic -->
+        <div class="pm-layer on" data-step="0">
+          <div class="doc">
+            <span class="doc-h">{{pm1_doc}}</span>
+            <svg class="doc-dwg" viewBox="0 0 120 70"><path pathLength="1" d="M8 8H112M8 62H112M30 8V24M30 34V62M24 24L30 34M60 8V24M60 34V62M54 24L60 34M90 8V22M90 22h6M90 34L97 21M90 34V62"/><rect pathLength="1" x="22" y="40" width="16" height="10"/><rect pathLength="1" x="52" y="40" width="16" height="10"/><circle pathLength="1" cx="90" cy="45" r="6"/><circle class="f" cx="30" cy="8" r="1.6"/><circle class="f" cx="60" cy="8" r="1.6"/><circle class="f" cx="90" cy="8" r="1.6"/><circle class="f" cx="30" cy="62" r="1.6"/><circle class="f" cx="60" cy="62" r="1.6"/><circle class="f" cx="90" cy="62" r="1.6"/></svg>
+            <span class="doc-foot">{{pm1_foot}}</span>
+            <span class="stamp">✓ {{pm_ok}}</span>
+          </div>
+        </div>
+        <!-- 02 quotes: a letter with lines and a total -->
+        <div class="pm-layer" data-step="1">
+          <div class="doc">
+            <span class="doc-h">{{pm2_doc}}</span>
+            <span class="doc-lines"><i></i><i class="s"></i><i></i><i class="m"></i></span>
+            <span class="doc-table"><i></i><i></i><i></i></span>
+            <span class="doc-total">{{pm2_total}}<b></b></span>
+            <span class="stamp">✓ {{pm_ok}}</span>
+          </div>
+        </div>
+        <!-- 03 knowledge: question, answer, source -->
+        <div class="pm-layer" data-step="2">
+          <div class="doc doc-qa">
+            <span class="qa-q">{{pm3_q}}</span>
+            <span class="qa-a">{{pm3_a}}</span>
+            <span class="qa-src">{{pm3_src}}</span>
+          </div>
+        </div>
+        <!-- 04 reports: bars -->
+        <div class="pm-layer" data-step="3">
+          <div class="doc">
+            <span class="doc-h">{{pm4_doc}}</span>
+            <span class="doc-bars"><i style="--h:.42"></i><i style="--h:.58"></i><i style="--h:.5"></i><i style="--h:.72"></i><i style="--h:.66"></i><i style="--h:.9"></i></span>
+            <span class="doc-lines"><i></i><i class="s"></i></span>
+            <span class="stamp">✓ {{pm_ok}}</span>
+          </div>
+        </div>
+        <!-- 05 languages -->
+        <div class="pm-layer" data-step="4">
+          <div class="doc">
+            <span class="doc-h">{{pm5_doc}}</span>
+            <span class="doc-langs"><i>DE</i><i>EN</i><i>FR</i><i>ES</i><i>IT</i><i>PL</i><i>CS</i><i>TR</i></span>
+            <span class="doc-lines"><i></i><i class="s"></i></span>
+            <span class="stamp">✓ {{pm_ok}}</span>
+          </div>
+        </div>
+        <!-- 06 checks -->
+        <div class="pm-layer" data-step="5">
+          <div class="doc">
+            <span class="doc-h">{{pm6_doc}}</span>
+            <span class="doc-checks"><i>{{pm6_c1}}</i><i>{{pm6_c2}}</i><i>{{pm6_c3}}</i><i>{{pm6_c4}}</i></span>
+            <span class="doc-zero"><b>0</b>{{pm6_zero}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pm-log">
+    <span class="pm-layer on" data-step="0">› {{pm1_log}}</span>
+    <span class="pm-layer" data-step="1">› {{pm2_log}}</span>
+    <span class="pm-layer" data-step="2">› {{pm3_log}}</span>
+    <span class="pm-layer" data-step="3">› {{pm4_log}}</span>
+    <span class="pm-layer" data-step="4">› {{pm5_log}}</span>
+    <span class="pm-layer" data-step="5">› {{pm6_log}}</span>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://mzollercreations.github.io/</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mzollercreations.github.io/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mzollercreations.github.io/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mzollercreations.github.io/"/>
+  </url>
+  <url>
+    <loc>https://mzollercreations.github.io/en/</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mzollercreations.github.io/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mzollercreations.github.io/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mzollercreations.github.io/"/>
+  </url>
+  <url>
+    <loc>https://mzollercreations.github.io/ki-effizienz/</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mzollercreations.github.io/ki-effizienz/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mzollercreations.github.io/en/ai-efficiency/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mzollercreations.github.io/ki-effizienz/"/>
+  </url>
+  <url>
+    <loc>https://mzollercreations.github.io/en/ai-efficiency/</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mzollercreations.github.io/ki-effizienz/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mzollercreations.github.io/en/ai-efficiency/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mzollercreations.github.io/ki-effizienz/"/>
+  </url>
+  <url>
+    <loc>https://mzollercreations.github.io/projekte/</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mzollercreations.github.io/projekte/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mzollercreations.github.io/en/projects/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mzollercreations.github.io/projekte/"/>
+  </url>
+  <url>
+    <loc>https://mzollercreations.github.io/en/projects/</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mzollercreations.github.io/projekte/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mzollercreations.github.io/en/projects/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mzollercreations.github.io/projekte/"/>
+  </url>
+</urlset>

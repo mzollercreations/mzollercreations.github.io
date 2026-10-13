@@ -6,6 +6,8 @@
 src/<page>.html are the templates ({{> name}} pulls in src/partials/name.html),
 src/i18n/<lang>.json hold the texts, site.json the brand name, URLs and the
 optional contact e-mail. German is served at the root, English under /en/.
+tools/drawing.py draws the generated SVG (drawing sheet, light path in the stone).
+Also writes sitemap.xml and robots.txt.
 """
 import hashlib
 import html
@@ -14,7 +16,11 @@ import posixpath
 import random
 import re
 import shutil
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from drawing import light_rays, sheet  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "src"
@@ -23,8 +29,11 @@ LANGS = ["de", "en"]  # first one is served at the root
 # page → template + output path per language (relative to the site root)
 PAGES = {
     "index": {"de": "", "en": "en/"},
+    "ai": {"de": "ki-effizienz/", "en": "en/ai-efficiency/"},
     "projects": {"de": "projekte/", "en": "en/projects/"},
 }
+META = {"index": "", "ai": "ai_", "projects": "pj_"}          # i18n prefix of title/description
+OG = {"index": "og-{lang}.png", "ai": "og-ai-{lang}.png", "projects": "og-projects-{lang}.png"}
 
 TOKEN = re.compile(
     r'(?P<c>//.*$)|(?P<s>"[^"]*")|(?P<k>\b(?:const|let|return)\b)'
@@ -91,15 +100,19 @@ def render(template, page, lang, site, v):
     email = site.get("email", "").strip()
 
     ctx = {k: v for k, v in t.items() if isinstance(v, str)}
-    meta = "" if page == "index" else "pj_"
+    meta = META[page]
     ctx.update(
         page_title=t[meta + "meta_title"],
         page_desc=t[meta + "meta_desc"],
-        og_image=site["url"] + ("assets/img/og.png" if page == "index" else f"assets/img/og-projects-{lang}.png"),
+        og_image=site["url"] + "assets/img/" + OG[page].format(lang=lang),
         base="" if here == "" else rel(here, ""),
         home="" if here == home else rel(here, home),
         href_projects=rel(here, PAGES["projects"][lang]),
+        href_ai=rel(here, PAGES["ai"][lang]),
         cur_projects=' aria-current="page"' if page == "projects" else "",
+        cur_ai=' aria-current="page"' if page == "ai" else "",
+        dwg=sheet(t),
+        bp_rays=light_rays(),
         v=v,
         site_url=site["url"],
         github=site["github"],
@@ -150,6 +163,22 @@ def main():
             out.parent.mkdir(parents=True, exist_ok=True)
             out.write_text(render(template, page, lang, site, v))
             print("wrote", out.relative_to(ROOT))
+
+    # sitemap with language alternates + robots.txt
+    urls = []
+    for page, paths in PAGES.items():
+        alts = "".join(
+            f'\n    <xhtml:link rel="alternate" hreflang="{l}" href="{site["url"]}{paths[l]}"/>' for l in LANGS
+        ) + f'\n    <xhtml:link rel="alternate" hreflang="x-default" href="{site["url"]}{paths[LANGS[0]]}"/>'
+        for lang in LANGS:
+            urls.append(f'  <url>\n    <loc>{site["url"]}{paths[lang]}</loc>{alts}\n  </url>')
+    (DOCS / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
+        + "\n".join(urls) + "\n</urlset>\n"
+    )
+    (DOCS / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {site['url']}sitemap.xml\n")
+    print("wrote docs/sitemap.xml, docs/robots.txt")
 
 
 if __name__ == "__main__":

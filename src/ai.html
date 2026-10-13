@@ -1,0 +1,232 @@
+{{> head}}
+<body class="page-ai">
+{{> nav}}
+
+<main id="main">
+
+<!-- ============ HERO: a plan draws itself ============ -->
+<section class="ai-hero" id="top">
+  <div class="wrap ai-hero-grid">
+    <div class="ai-hero-copy">
+      <p class="eyebrow"><svg class="mark" aria-hidden="true"><use href="#mark"/></svg>{{ai_eyebrow}}</p>
+      <h1 class="pj-title ai-title">
+        <span class="line"><span class="line-in" style="--d:0">{{ai_l1}}</span></span>
+        <span class="line"><span class="line-in" style="--d:.08">{{ai_l2}}</span></span>
+        <span class="line"><span class="line-in" style="--d:.16">{{ai_l3}}</span></span>
+      </h1>
+      <p class="pj-sub">{{ai_sub}}</p>
+      <div class="hero-ctas ai-ctas">
+        <a class="btn btn-solid" href="#rechner"><span>{{ai_btn1}}</span><svg class="arr" aria-hidden="true"><use href="#arr-down"/></svg></a>
+        <a class="btn btn-line" href="#stapel-kurz"><span>{{ai_btn2}}</span><svg class="arr" aria-hidden="true"><use href="#arr-down"/></svg></a>
+      </div>
+    </div>
+    <div class="ai-hero-vis">
+      <div class="sheets" data-draw>
+        <span class="sheet-back sb2" aria-hidden="true"></span><span class="sheet-back sb1" aria-hidden="true"></span>
+        <div class="sheet-front">{{dwg}}</div>
+      </div>
+      <div class="sheet-status" aria-hidden="true">
+        <span class="ss-left"><b class="ss-dot"></b>{{ai_vis_sheet}} <span data-sheetcount data-to="27">01 / 27</span></span>
+        <span class="ss-right">{{ai_vis_check}}</span>
+      </div>
+      <p class="sheet-note">{{ai_vis_note}}</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CALCULATOR: where the time goes ============ -->
+<section class="calc-sec dark" id="rechner" data-dark>
+  <div class="wrap">
+    <div class="calc-head">
+      <div>
+        <p class="label"><i>01</i>{{calc_label}}</p>
+        <h2 class="h2" data-split>{{calc_title}}</h2>
+      </div>
+      <p class="lead" data-reveal>{{calc_text}}</p>
+    </div>
+    <div class="calc" data-calc data-reveal>
+      <div class="calc-inputs">
+        <fieldset class="calc-tasks">
+          <legend>{{calc_tasks}}</legend>
+          <div class="chips">
+            <button class="chip" type="button" aria-pressed="true" data-task="1">{{calc_t1}}</button>
+            <button class="chip" type="button" aria-pressed="false" data-task="2">{{calc_t2}}</button>
+            <button class="chip" type="button" aria-pressed="true" data-task="3">{{calc_t3}}</button>
+            <button class="chip" type="button" aria-pressed="false" data-task="4">{{calc_t4}}</button>
+            <button class="chip" type="button" aria-pressed="false" data-task="5">{{calc_t5}}</button>
+            <button class="chip" type="button" aria-pressed="false" data-task="6">{{calc_t6}}</button>
+            <button class="chip" type="button" aria-pressed="false" data-task="7">{{calc_t7}}</button>
+            <button class="chip" type="button" aria-pressed="false" data-task="8">{{calc_t8}}</button>
+          </div>
+        </fieldset>
+        <div class="calc-range">
+          <div class="cr-top"><label for="calc-h">{{calc_hours}}</label><output for="calc-h" data-calc-out="h">6</output></div>
+          <input id="calc-h" type="range" min="1" max="25" step="1" value="6" data-calc-in="h">
+          <div class="cr-scale" aria-hidden="true"><span>1</span><span>25</span></div>
+        </div>
+        <div class="calc-range">
+          <div class="cr-top"><label for="calc-p">{{calc_people}}</label><output for="calc-p" data-calc-out="p">10</output></div>
+          <input id="calc-p" type="range" min="1" max="100" step="1" value="10" data-calc-in="p">
+          <div class="cr-scale" aria-hidden="true"><span>1</span><span>100</span></div>
+        </div>
+      </div>
+      <div class="calc-result" aria-live="polite">
+        <span class="calc-k">{{calc_result_k}}</span>
+        <div class="calc-num"><span data-calc-total>2.640</span></div>
+        <span class="calc-unit">{{calc_unit}}</span>
+        <p class="calc-fte">{{calc_fte_pre}} <b data-calc-fte>1,5</b> {{calc_fte_post}}</p>
+        <div class="calc-build">
+          <h3>{{calc_build_h}}</h3>
+          <ul>
+            <li data-task="1">{{calc_b1}}</li>
+            <li data-task="2" hidden>{{calc_b2}}</li>
+            <li data-task="3">{{calc_b3}}</li>
+            <li data-task="4" hidden>{{calc_b4}}</li>
+            <li data-task="5" hidden>{{calc_b5}}</li>
+            <li data-task="6" hidden>{{calc_b6}}</li>
+            <li data-task="7" hidden>{{calc_b7}}</li>
+            <li data-task="8" hidden>{{calc_b8}}</li>
+          </ul>
+          <p class="calc-empty" hidden>{{calc_empty}}</p>
+        </div>
+        <a class="btn btn-solid" href="#contact"><span>{{calc_cta}}</span><svg class="arr" aria-hidden="true"><use href="#arr"/></svg></a>
+        <p class="calc-note">{{calc_note}}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AREAS ============ -->
+<section class="sheet areas" id="bereiche">
+  <div class="wrap">
+    <div class="pj-sec-head">
+      <p class="label"><i>02</i>{{ar_label}}</p>
+      <h2 class="h2" data-split>{{ar_title}}</h2>
+    </div>
+    <div class="area-grid">
+      <article class="area" data-reveal>
+        <div class="area-top"><span class="area-num">01</span><svg class="area-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3.5h11l5 5v12H4zM15 3.5v5h5M8 13h8M8 16.5h5M8 9.5h4"/></svg></div>
+        <h3>{{pv1_title}}</h3><p>{{ar1_text}}</p>
+        <ul class="area-ex"><li>{{ar1_e1}}</li><li>{{ar1_e2}}</li><li>{{ar1_e3}}</li></ul>
+      </article>
+      <article class="area" data-reveal style="--d:80">
+        <div class="area-top"><span class="area-num">02</span><svg class="area-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 6h17v12h-17zM3.5 6.5l8.5 7 8.5-7"/></svg></div>
+        <h3>{{pv2_title}}</h3><p>{{ar2_text}}</p>
+        <ul class="area-ex"><li>{{ar2_e1}}</li><li>{{ar2_e2}}</li><li>{{ar2_e3}}</li></ul>
+      </article>
+      <article class="area" data-reveal style="--d:160">
+        <div class="area-top"><span class="area-num">03</span><svg class="area-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 4a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM15.3 15.3 20.5 20.5M8 10.5h5M10.5 8v5"/></svg></div>
+        <h3>{{pv3_title}}</h3><p>{{ar3_text}}</p>
+        <ul class="area-ex"><li>{{ar3_e1}}</li><li>{{ar3_e2}}</li><li>{{ar3_e3}}</li></ul>
+      </article>
+      <article class="area" data-reveal>
+        <div class="area-top"><span class="area-num">04</span><svg class="area-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20.5h16M6.5 17V11M11 17V6M15.5 17v-8M20 17V4"/></svg></div>
+        <h3>{{pv4_title}}</h3><p>{{ar4_text}}</p>
+        <ul class="area-ex"><li>{{ar4_e1}}</li><li>{{ar4_e2}}</li><li>{{ar4_e3}}</li></ul>
+      </article>
+      <article class="area" data-reveal style="--d:80">
+        <div class="area-top"><span class="area-num">05</span><svg class="area-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5a8.5 8.5 0 1 0 0 17 8.5 8.5 0 0 0 0-17zM3.5 12h17M12 3.5c2.6 2.4 3.8 5.2 3.8 8.5S14.6 18.1 12 20.5M12 3.5C9.4 5.9 8.2 8.7 8.2 12s1.2 6.1 3.8 8.5"/></svg></div>
+        <h3>{{pv5_title}}</h3><p>{{ar5_text}}</p>
+        <ul class="area-ex"><li>{{ar5_e1}}</li><li>{{ar5_e2}}</li><li>{{ar5_e3}}</li></ul>
+      </article>
+      <article class="area" data-reveal style="--d:160">
+        <div class="area-top"><span class="area-num">06</span><svg class="area-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.6 3.1 8.1 7.5 9.5 4.4-1.4 7.5-4.9 7.5-9.5V6zM8.5 12l2.5 2.5 4.5-5"/></svg></div>
+        <h3>{{pv6_title}}</h3><p>{{ar6_text}}</p>
+        <ul class="area-ex"><li>{{ar6_e1}}</li><li>{{ar6_e2}}</li><li>{{ar6_e3}}</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROOF: Projekt Stapel, short ============ -->
+<section class="sheet dark ai-case" id="stapel-kurz" data-dark>
+  <div class="wrap">
+    <div class="ai-case-head">
+      <div>
+        <p class="label"><i>03</i>{{aic_label}}</p>
+        <h2 class="h2" data-split>{{aic_title}}</h2>
+      </div>
+      <div>
+        <p class="lead" data-reveal>{{aic_text}}</p>
+        <p class="conf-note" data-reveal><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 11V8a5 5 0 0 1 10 0v3M5.5 11h13v9.5h-13z"/></svg>{{conf_short}}</p>
+      </div>
+    </div>
+    {{> timeline}}
+    {{> stapel_stats}}
+    <div class="ai-case-cta" data-reveal>
+      <a class="btn btn-light btn-xl" href="{{href_projects}}#stapel"><span>{{aic_btn}}</span><svg class="arr" aria-hidden="true"><use href="#arr"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRINCIPLES + HOW WE START ============ -->
+<section class="sheet principles">
+  <div class="wrap">
+    <div class="pj-sec-head">
+      <p class="label"><i>04</i>{{pr_label}}</p>
+      <h2 class="h2" data-split>{{pr_title}}</h2>
+    </div>
+    <div class="pr-grid">
+      <article class="pr" data-reveal><span class="pr-num">i</span><h3>{{pr1_h}}</h3><p>{{pr1}}</p></article>
+      <article class="pr" data-reveal style="--d:80"><span class="pr-num">ii</span><h3>{{pr2_h}}</h3><p>{{pr2}}</p></article>
+      <article class="pr" data-reveal style="--d:160"><span class="pr-num">iii</span><h3>{{pr3_h}}</h3><p>{{pr3}}</p></article>
+      <article class="pr" data-reveal style="--d:240"><span class="pr-num">iv</span><h3>{{pr4_h}}</h3><p>{{pr4}}</p></article>
+    </div>
+
+    <div class="pj-sec-head steps-head">
+      <p class="label"><i>05</i>{{st_label}}</p>
+      <h2 class="h2" data-split>{{st_title}}</h2>
+    </div>
+    <ol class="steps" data-progress>
+      <li class="step" data-reveal><span class="step-dot"></span><span class="step-num">01</span><h3>{{st1_h}}</h3><p>{{st1}}</p></li>
+      <li class="step" data-reveal style="--d:90"><span class="step-dot"></span><span class="step-num">02</span><h3>{{st2_h}}</h3><p>{{st2}}</p></li>
+      <li class="step" data-reveal style="--d:180"><span class="step-dot"></span><span class="step-num">03</span><h3>{{st3_h}}</h3><p>{{st3}}</p></li>
+      <li class="step" data-reveal style="--d:270"><span class="step-dot"></span><span class="step-num">04</span><h3>{{st4_h}}</h3><p>{{st4}}</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="sheet dark faq" data-dark>
+  <div class="wrap faq-grid">
+    <div class="faq-head">
+      <p class="label"><i>06</i>{{faq_label}}</p>
+      <h2 class="h2" data-split>{{faq_title}}</h2>
+    </div>
+    <div class="faq-list" data-reveal>
+      <details><summary>{{faq1_q}}<i aria-hidden="true"></i></summary><p>{{faq1_a}}</p></details>
+      <details><summary>{{faq2_q}}<i aria-hidden="true"></i></summary><p>{{faq2_a}}</p></details>
+      <details><summary>{{faq3_q}}<i aria-hidden="true"></i></summary><p>{{faq3_a}}</p></details>
+      <details><summary>{{faq4_q}}<i aria-hidden="true"></i></summary><p>{{faq4_a}}</p></details>
+      <details><summary>{{faq5_q}}<i aria-hidden="true"></i></summary><p>{{faq5_a}}</p></details>
+      <details><summary>{{faq6_q}}<i aria-hidden="true"></i></summary><p>{{faq6_a}}</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="sheet contact" id="contact">
+  <div class="wrap contact-grid">
+    <div class="contact-copy">
+      <p class="label"><i>07</i>{{contact_label}}</p>
+      <h2 class="contact-title" data-split>{{ai_cta_title}}</h2>
+      <p class="lead" data-reveal>{{ai_cta_text}}</p>
+      <div class="contact-cta" data-reveal style="--d:120">
+        <a class="btn btn-solid btn-xl" href="{{contact_href}}"{{contact_target}}><span>{{contact_btn}}</span><svg class="arr" aria-hidden="true"><use href="#arr"/></svg></a>
+      </div>
+    </div>
+    <div class="contact-gem" data-gem-box>
+      <canvas class="gem-canvas" aria-hidden="true"></canvas>
+      <svg class="ring" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="ringpath" d="M100,100 m-88,0 a88,88 0 1,1 176,0 a88,88 0 1,1 -176,0"/></defs><text textLength="548" lengthAdjust="spacing"><textPath href="#ringpath">{{contact_badge}}{{contact_badge}}</textPath></text></svg>
+    </div>
+  </div>
+</section>
+
+</main>
+
+{{> footer}}
+
+<script src="{{base}}assets/js/gem.js?v={{v}}" defer></script>
+<script src="{{base}}assets/js/main.js?v={{v}}" defer></script>
+</body>
+</html>

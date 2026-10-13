@@ -21,11 +21,12 @@
           <span class="line"><span class="line-in" style="--d:0">{{hero_l1}}</span></span>
           <span class="line"><span class="line-in" style="--d:.08">{{hero_l2}}</span></span>
           <span class="line"><span class="line-in" style="--d:.16">{{hero_l3}}</span></span>
+          <span class="line"><span class="line-in" style="--d:.24">{{hero_l4}}</span></span>
         </h1>
         <p class="hero-sub">{{hero_sub}}</p>
         <div class="hero-ctas">
           <a class="btn btn-solid" href="#contact"><span>{{hero_btn1}}</span><svg class="arr" aria-hidden="true"><use href="#arr"/></svg></a>
-          <a class="btn btn-line" href="#services"><span>{{hero_btn2}}</span><svg class="arr" aria-hidden="true"><use href="#arr-down"/></svg></a>
+          <a class="btn btn-line" href="#sides"><span>{{hero_btn2}}</span><svg class="arr" aria-hidden="true"><use href="#arr-down"/></svg></a>
         </div>
       </div>
       <div class="gem-slot" id="hero-slot" aria-hidden="true">
@@ -73,43 +74,79 @@
   </div>
 </section>
 
-<!-- ============ WHY SAPPHIRE: a technical drawing ============ -->
-<section class="why dark" data-dark>
-  <div class="wrap why-grid">
-    <div class="why-copy">
-      <p class="label"><i>✦</i>{{why_label}}</p>
-      <h2 class="why-title" data-split>{{why_title}}</h2>
-      <p class="why-text" data-reveal>{{why_text}}</p>
+<!-- ============ TWO SIDES: crown = marketing, pavilion = AI efficiency ============ -->
+<section class="facets dark" id="sides" data-dark data-steps="4">
+  <div class="sticky">
+    <div class="wrap facets-grid">
+      <div class="facets-copy">
+        <div class="fc-steps">
+          <div class="fc-step on" data-step="0">
+            <p class="label"><i>✦</i>{{why_label}}</p>
+            <h2 class="fc-title">{{why_title}}</h2>
+            <p class="fc-text">{{why_text}}</p>
+          </div>
+          <div class="fc-step" data-step="1">
+            <p class="label"><i>{{fc1_kicker}}</i>{{fc1_label}}</p>
+            <h2 class="fc-title">{{fc1_title}}</h2>
+            <p class="fc-text">{{fc1_text}}</p>
+            <a class="fc-link" href="#services">{{fc1_link}} <svg class="arr" aria-hidden="true"><use href="#arr-down"/></svg></a>
+          </div>
+          <div class="fc-step" data-step="2">
+            <p class="label"><i>{{fc2_kicker}}</i>{{fc2_label}}</p>
+            <h2 class="fc-title">{{fc2_title}}</h2>
+            <p class="fc-text">{{fc2_text}}</p>
+            <a class="fc-link" href="#ki">{{fc2_link}} <svg class="arr" aria-hidden="true"><use href="#arr-down"/></svg></a>
+          </div>
+          <div class="fc-step" data-step="3">
+            <p class="label"><i>✦</i>{{fc3_label}}</p>
+            <h2 class="fc-title">{{fc3_title}}</h2>
+            <p class="fc-text">{{fc3_text}}</p>
+          </div>
+        </div>
+        <div class="fc-dots" aria-hidden="true"><i class="on" data-step="0"></i><i data-step="1"></i><i data-step="2"></i><i data-step="3"></i></div>
+      </div>
+      <figure class="blueprint facets-bp" data-reveal aria-hidden="true">
+        <svg viewBox="0 0 560 400">
+          <g class="bp-fills">
+            <path class="bp-fill bp-crown" d="M148 82H372L460 142H60Z"/>
+            <path class="bp-fill bp-pav" d="M60 148H460L260 320Z"/>
+          </g>
+          <g class="bp-dim">
+            <path d="M148 56h224M148 48v16M372 48v16"/>
+            <path d="M486 82v60M480 82h12M480 142h12"/>
+            <path d="M486 148v172M480 148h12M480 320h12"/>
+            <path d="M120 142A60 60 0 0 0 109.6 108.2M120 148A60 60 0 0 1 105.5 187.1M56 122h40M56 170h40"/>
+            <path class="bp-axis" d="M260 30v318M20 145h460"/>
+          </g>
+          <g class="bp-cut">
+            <g class="bp-c">
+              <path pathLength="1" d="M148 82H372L460 142H60L148 82"/>
+              <path pathLength="1" d="M372 82L406 113L339 82L320.5 113L260 82L199.5 113L181 82L114 113L148 82"/>
+              <path pathLength="1" d="M460 142L406 113L401 142L320.5 113L260 142L199.5 113L119 142L114 113L60 142"/>
+              <path pathLength="1" d="M406 113L444.8 142M320.5 113L336.5 142M199.5 113L183.5 142M114 113L75 142"/>
+            </g>
+            <g class="bp-p">
+              <path pathLength="1" d="M60 148H460L260 320L60 148"/>
+              <path pathLength="1" d="M60 142V148M460 142V148"/>
+              <path pathLength="1" d="M460 148L326.5 258L401 148L287.6 258L260 148L232.4 258L119 148L193.5 258L60 148"/>
+              <path pathLength="1" d="M444.8 148L326.5 258M336.5 148L287.6 258M183.5 148L232.4 258M75 148L193.5 258"/>
+              <path pathLength="1" d="M326.5 258L260 320L287.6 258M232.4 258L260 320L193.5 258"/>
+            </g>
+          </g>
+          <g class="bp-rays">{{bp_rays}}</g>
+          <g class="bp-text">
+            <text x="260" y="40" text-anchor="middle">{{bp_table}}</text>
+            <text x="498" y="117">{{bp_crown}}</text>
+            <text x="498" y="239">{{bp_pavilion}}</text>
+            <text x="48" y="126" text-anchor="end">{{bp_ca}}</text>
+            <text x="48" y="174" text-anchor="end">{{bp_pa}}</text>
+            <text x="260" y="378" text-anchor="middle" class="bp-faint">{{bp_caption}}</text>
+          </g>
+          <g class="bp-tag bp-tag-c"><rect x="199" y="100" width="122" height="24" rx="12"/><text x="260" y="116" text-anchor="middle">{{fc_tag_crown}}</text></g>
+          <g class="bp-tag bp-tag-p"><rect x="199" y="184" width="122" height="24" rx="12"/><text x="260" y="200" text-anchor="middle">{{fc_tag_pav}}</text></g>
+        </svg>
+      </figure>
     </div>
-    <figure class="blueprint" data-reveal aria-hidden="true">
-      <svg viewBox="0 0 560 400">
-        <g class="bp-dim">
-          <path d="M148 56h224M148 48v16M372 48v16"/>
-          <path d="M486 82v60M480 82h12M480 142h12"/>
-          <path d="M486 148v172M480 148h12M480 320h12"/>
-          <path d="M120 142A60 60 0 0 0 109.6 108.2M120 148A60 60 0 0 1 105.5 187.1M56 122h40M56 170h40"/>
-          <path class="bp-axis" d="M260 30v318M20 145h460"/>
-        </g>
-        <g class="bp-cut">
-          <path pathLength="1" d="M148 82H372L460 142V148L260 320L60 148V142Z"/>
-          <path pathLength="1" d="M60 142H460M60 148H460"/>
-          <path pathLength="1" d="M372 82L406 113L339 82L320.5 113L260 82L199.5 113L181 82L114 113L148 82"/>
-          <path pathLength="1" d="M460 142L406 113L401 142L320.5 113L260 142L199.5 113L119 142L114 113L60 142"/>
-          <path pathLength="1" d="M406 113L444.8 142M320.5 113L336.5 142M199.5 113L183.5 142M114 113L75 142"/>
-          <path pathLength="1" d="M460 148L326.5 258L401 148L287.6 258L260 148L232.4 258L119 148L193.5 258L60 148"/>
-          <path pathLength="1" d="M444.8 148L326.5 258M336.5 148L287.6 258M183.5 148L232.4 258M75 148L193.5 258"/>
-          <path pathLength="1" d="M326.5 258L260 320L287.6 258M232.4 258L260 320L193.5 258"/>
-        </g>
-        <g class="bp-text">
-          <text x="260" y="40" text-anchor="middle">{{bp_table}}</text>
-          <text x="498" y="117">{{bp_crown}}</text>
-          <text x="498" y="239">{{bp_pavilion}}</text>
-          <text x="48" y="126" text-anchor="end">{{bp_ca}}</text>
-          <text x="48" y="174" text-anchor="end">{{bp_pa}}</text>
-          <text x="260" y="378" text-anchor="middle" class="bp-faint">{{bp_caption}}</text>
-        </g>
-      </svg>
-    </figure>
   </div>
 </section>
 
@@ -223,12 +260,37 @@
   </div>
 </section>
 
+<!-- ============ PAVILION: AI that takes work off the team ============ -->
+<section class="pav dark" id="ki" data-dark data-steps="6">
+  <div class="sticky">
+    <div class="wrap pav-grid">
+      <div class="pav-copy">
+        <p class="label"><i>03</i>{{pav_label}}</p>
+        <h2 class="pav-title">{{pav_title}}</h2>
+        <ol class="pav-list">
+          <li class="pav-item on" data-step="0"><span class="pav-num">01</span><div><h3>{{pv1_title}}</h3><p>{{pv1_text}}</p></div></li>
+          <li class="pav-item" data-step="1"><span class="pav-num">02</span><div><h3>{{pv2_title}}</h3><p>{{pv2_text}}</p></div></li>
+          <li class="pav-item" data-step="2"><span class="pav-num">03</span><div><h3>{{pv3_title}}</h3><p>{{pv3_text}}</p></div></li>
+          <li class="pav-item" data-step="3"><span class="pav-num">04</span><div><h3>{{pv4_title}}</h3><p>{{pv4_text}}</p></div></li>
+          <li class="pav-item" data-step="4"><span class="pav-num">05</span><div><h3>{{pv5_title}}</h3><p>{{pv5_text}}</p></div></li>
+          <li class="pav-item" data-step="5"><span class="pav-num">06</span><div><h3>{{pv6_title}}</h3><p>{{pv6_text}}</p></div></li>
+        </ol>
+        <div class="pav-foot">
+          <span class="pav-count"><b>01</b> / 06</span>
+          <a class="btn btn-light btn-small" href="{{href_ai}}"><span>{{pav_btn}}</span><svg class="arr" aria-hidden="true"><use href="#arr"/></svg></a>
+        </div>
+      </div>
+      {{> machine}}
+    </div>
+  </div>
+</section>
+
 <!-- ============ WORK: the proof, right after the promise ============ -->
 <section class="work dark" id="work" data-dark>
   <div class="wrap">
     <div class="work-head">
       <div>
-        <p class="label"><i>03</i>{{work_label}}</p>
+        <p class="label"><i>04</i>{{work_label}}</p>
         <h2 class="h2" data-split>{{work_title}}</h2>
       </div>
       <a class="btn btn-line" href="{{href_projects}}"><span>{{work_all}}</span><svg class="arr" aria-hidden="true"><use href="#arr"/></svg></a>
@@ -255,6 +317,25 @@
         </div>
       </div>
     </article>
+    <article class="work-card work-card-rev" data-reveal>
+      <a class="viewer work-shot" href="{{href_projects}}#stapel" aria-label="{{work2_btn}}: {{work2_plain}}">
+        <span class="viewer-bar" aria-hidden="true"><i></i><i></i><i></i><span class="viewer-file">{{viewer_file}}</span><span class="viewer-page" data-sheetcount data-to="27">01 / 27</span></span>
+        <span class="viewer-stage" data-draw>{{dwg}}</span>
+      </a>
+      <div class="work-info">
+        <p class="work-kicker">02 · {{work2_meta}}</p>
+        <h3 class="work-name">{{work2_name}}</h3>
+        <p class="work-text">{{work2_text}}</p>
+        <ul class="work-facts">
+          <li><b>{{work2_f1_num}}</b><span>{{work2_f1}}</span></li>
+          <li><b>27</b><span>{{work2_f2}}</span></li>
+          <li><b>0</b><span>{{work2_f3}}</span></li>
+        </ul>
+        <div class="work-ctas">
+          <a class="btn btn-light" href="{{href_projects}}#stapel"><span>{{work2_btn}}</span><svg class="arr" aria-hidden="true"><use href="#arr"/></svg></a>
+          <a class="btn btn-line" href="{{href_ai}}"><span>{{nav_ai}}</span><svg class="arr" aria-hidden="true"><use href="#arr"/></svg></a>
+        </div>
+      </div>
   </div>
 </section>
 
@@ -262,7 +343,7 @@
 <section class="team dark" id="team" data-dark>
   <div class="wrap team-grid">
     <div class="team-copy">
-      <p class="label"><i>04</i>{{team_label}}</p>
+      <p class="label"><i>05</i>{{team_label}}</p>
       <h2 class="h2" data-split>{{team_title}}</h2>
       <p class="lead" data-reveal>{{team_text}}</p>
     </div>
@@ -295,7 +376,7 @@
 <section class="process sheet" id="process">
   <div class="wrap">
     <div class="process-head">
-      <p class="label"><i>05</i>{{process_label}}</p>
+      <p class="label"><i>06</i>{{process_label}}</p>
       <h2 class="h2" data-split>{{process_title}}</h2>
     </div>
     <div class="stack">
@@ -331,7 +412,7 @@
 <section class="contact" id="contact">
   <div class="wrap contact-grid">
     <div class="contact-copy">
-      <p class="label"><i>06</i>{{contact_label}}</p>
+      <p class="label"><i>07</i>{{contact_label}}</p>
       <h2 class="contact-title" data-split>{{contact_title}}</h2>
       <p class="lead" data-reveal>{{contact_text}}</p>
       <div class="contact-cta" data-reveal style="--d:120">
